@@ -41,7 +41,8 @@ const signinStyle = {
 	containerButtonOptions: {
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		justifyContent: 'center',
+    marginTop: 4
 	},
 	containerSocialLoginButton: {
 		width: '100%',
@@ -56,7 +57,7 @@ const signinStyle = {
 		marginLeft: 15
 	},
 	containerRouterSignUp: {
-		marginTop: 15
+		marginTop: 30
 	},
 	containerLoginOptions: {
 		paddingRight: 5,

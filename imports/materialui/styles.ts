@@ -17,16 +17,16 @@
 import React from 'react';
 
 /////////////////////////////////////////////// Paleta de cores do prototipo de alta /////////////////////////////////
-const primary = '#5a9902';
-const onPrimary = '#FFFFFF';
-const primaryContainer = '#9DE4D6';
-const onPrimaryContainer = '#034944';
+const primary = '#c4c4c4';
+const onPrimary = '#000';
+const primaryContainer = '#DEDEDE';
+const onPrimaryContainer = '#E6E7E8';
 const primaryOnHover = 'rgba(0, 126, 122, 0.1)';
 
-const secondary = '#2182C0';
-const onSecondary = '#034944';
+const secondary = '#000';
+const onSecondary = '#E6E7E8';
 const secondaryContainer = '#FFDD99';
-const onSecondaryContainer = '#034944';
+const onSecondaryContainer = '#E6E7E8';
 const secondaryOnHover = 'rgba(236, 177, 31, 0.2)';
 
 const error = '#B30501';
@@ -34,9 +34,9 @@ const onError = '#FFFFFF';
 const errorContainer = '#F7C0BF';
 const onErrorContainer = '#B30501';
 
-const background = '#F0F2FB';
+const background = '#FFFFFF';
 const onBackground = '#404040';
-const buttonOnHover = '#006B68';
+const buttonOnHover = '#E6E7E8';
 
 const primaryGradient = 'linear-gradient(180deg, #0ABB98 0%, #08AE92 45.83%, #06A28B 69.27%, #007E7A 100%)';
 const secondaryGradient = 'linear-gradient(180deg, #034944 0%, #007E7A 100%)';

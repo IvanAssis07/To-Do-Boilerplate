@@ -58,51 +58,51 @@ export const SignIn = (props: ISignIn) => {
 		});
 	};
 
-	const SocialLoginButton = ({ onLogin, buttonText, iconClass, customCss, iconOnly }) => (
-		<Box
-			onClick={onLogin}
-			className="material-button-contained"
-			sx={{
-				width: '100%',
-				display: 'flex',
-				flexDirection: 'row',
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: 50,
-				color: '#FFF',
-				...customCss
-			}}>
-			<i className={iconClass} />
-			{!iconOnly && <span style={{ marginLeft: 15 }}>{buttonText}</span>}
-		</Box>
-	);
+	// const SocialLoginButton = ({ onLogin, buttonText, iconClass, customCss, iconOnly }) => (
+	// 	<Box
+	// 		onClick={onLogin}
+	// 		className="material-button-contained"
+	// 		sx={{
+	// 			width: '100%',
+	// 			display: 'flex',
+	// 			flexDirection: 'row',
+	// 			justifyContent: 'center',
+	// 			alignItems: 'center',
+	// 			height: 50,
+	// 			color: '#FFF',
+	// 			...customCss
+	// 		}}>
+	// 		<i className={iconClass} />
+	// 		{!iconOnly && <span style={{ marginLeft: 15 }}>{buttonText}</span>}
+	// 	</Box>
+	// );
 
-	const callbackLogin = (err) => {
-		if (err) {
-			console.log('Login Error: ', err);
-			if (err.errorType === 'Accounts.LoginCancelledError') {
-				showNotification('Autenticação cancelada', 'error');
-				//self.setState({ error: 'AUtenticação cancelada' })
-			} else {
-				showNotification(err.error, 'error');
-			}
-		} else {
-			setRedirectToReferer(true);
-			navigate('/');
-		}
-	};
+	// const callbackLogin = (err) => {
+	// 	if (err) {
+	// 		console.log('Login Error: ', err);
+	// 		if (err.errorType === 'Accounts.LoginCancelledError') {
+	// 			showNotification('Autenticação cancelada', 'error');
+	// 			//self.setState({ error: 'AUtenticação cancelada' })
+	// 		} else {
+	// 			showNotification(err.error, 'error');
+	// 		}
+	// 	} else {
+	// 		setRedirectToReferer(true);
+	// 		navigate('/');
+	// 	}
+	// };
 
-	const loginFacebook = () => {
-		Meteor.loginWithFacebook({ requestPermissions: ['public_profile', 'email'] }, (err) => {
-			callbackLogin(err);
-		});
-	};
+	// const loginFacebook = () => {
+	// 	Meteor.loginWithFacebook({ requestPermissions: ['public_profile', 'email'] }, (err) => {
+	// 		callbackLogin(err);
+	// 	});
+	// };
 
-	const loginGoogle = () => {
-		Meteor.loginWithGoogle({ requestPermissions: ['profile', 'email'] }, (err) => {
-			callbackLogin(err);
-		});
-	};
+	// const loginGoogle = () => {
+	// 	Meteor.loginWithGoogle({ requestPermissions: ['profile', 'email'] }, (err) => {
+	// 		callbackLogin(err);
+	// 	});
+	// };
 
 	React.useEffect(() => {
 		if (!!user && !!user._id) navigate('/');
@@ -120,12 +120,15 @@ export const SignIn = (props: ISignIn) => {
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'center',
-						alignItems: 'center'
+						alignItems: 'center',
+            marginTop: '10%',
+            textAlign: 'center'
 					}}>
 					<Box>
 						<h2 style={signinStyle.labelAccessSystem}>
-							<img src="/images/wireframe/logo.png" style={signinStyle.imageLogo} />
-							<span>Acessar o sistema</span>
+							{/* <img src="/images/wireframe/logo.png" style={signinStyle.imageLogo} /> */}
+							<span>Boas-vindas a sua lista de tarefas.</span>
+              <span>Insira o seu e-mail e senha para efetuar o login:</span>
 						</h2>
 						<SimpleForm
 							schema={{
@@ -143,21 +146,26 @@ export const SignIn = (props: ISignIn) => {
 									type="password"
 								/>
 								<Box sx={signinStyle.containerButtonOptions}>
-									<Button id="forgotPassword" color={'secondary'} onClick={() => navigate('/password-recovery')}>
+									{/* <Button id="forgotPassword" color={'secondary'} onClick={() => navigate('/password-recovery')}>
 										Esqueci a minha senha
-									</Button>
-									<Button id="submit" variant={'outlined'} color={'primary'}>
+									</Button> */}
+									<Button id="submit" variant={'contained'} color={'primary'}>
 										Entrar
 									</Button>
 								</Box>
 							</Box>
 						</SimpleForm>
 						<Box style={signinStyle.containerRouterSignUp}>
-							<Button id="newUser" color={'secondary'} onClick={() => navigate('/signup')}>
-								É novo por aqui? Clique aqui para se cadastrar!
+							<Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/signup')}>
+								Esqueceu sua senha? Clique aqui
 							</Button>
 						</Box>
-						<Box
+            <Box>
+              <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/signup')}>
+								É novo por aqui? Cadastre-se
+							</Button>
+            </Box>
+						{/* <Box
 							key="loginoptions"
 							style={{
 								paddingRight: 5,
@@ -195,7 +203,7 @@ export const SignIn = (props: ISignIn) => {
 									}}
 								/>
 							</Box>
-						</Box>
+						</Box> */}
 					</Box>
 				</Box>
 			</Container>
