@@ -92,9 +92,7 @@ export const SignIn = (props: ISignIn) => {
 							onSubmit={handleSubmit}>
 							<Box>
 								<TextField 
-                  sx={{
-                    marginBottom:2
-                  }}
+                  sx={signinStyle.input}
                   label="Email" 
                   fullWidth={true} 
                   name="email" 

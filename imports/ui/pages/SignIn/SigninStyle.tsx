@@ -73,6 +73,9 @@ const signinStyle = {
 	containerButtonFacebook: {
 		width: '100%'
 	},
+  input: {
+    marginBottom: 2
+  },
 	buttonLoginGoogle: {
 		background: '#dd4b39',
 		width: '100%',

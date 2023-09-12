@@ -47,7 +47,7 @@ Loading
   width: 15px;
   height: 15px;
   border-radius: 15px;
-  background-color: #000;
+  background-color: #1f1e1e;
 }
 
 .loading .line:nth-last-child(1) {

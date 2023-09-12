@@ -1,8 +1,9 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { exampleApi } from '../../api/exampleApi';
+import { toDosApi } from '../../api/toDosApi';
 import { userprofileApi } from '../../../../userprofile/api/UserProfileApi';
 import { SimpleTable } from '/imports/ui/components/SimpleTable/SimpleTable';
+import _ from 'lodash';
 import Add from '@mui/icons-material/Add';
 import Delete from '@mui/icons-material/Delete';
 import Fab from '@mui/material/Fab';
@@ -11,30 +12,32 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { initSearch } from '/imports/libs/searchUtils';
 import * as appStyle from '/imports/materialui/styles';
 import { nanoid } from 'nanoid';
+import { PageLayout } from '/imports/ui/layouts/PageLayout';
 import TextField from '/imports/ui/components/SimpleFormFields/TextField/TextField';
 import SearchDocField from '/imports/ui/components/SimpleFormFields/SearchDocField/SearchDocField';
 import { IDefaultContainerProps, IDefaultListProps, IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
-import { IExample } from '../../api/exampleSch';
+import { IToDos } from '../../api/toDosSch';
 import { IConfigList } from '/imports/typings/IFilterProperties';
 import { Recurso } from '../../config/Recursos';
 import { RenderComPermissao } from '/imports/seguranca/ui/components/RenderComPermisao';
+import { isMobile } from '/imports/libs/deviceVerify';
 import { showLoading } from '/imports/ui/components/Loading/Loading';
+import { toDosListStyle } from './style/toDosListStyle';
 import { ComplexTable } from '/imports/ui/components/ComplexTable/ComplexTable';
 import ToggleField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleField';
-import { PageLayout } from 'imports/ui/layouts/PageLayout';
 
-interface IExampleList extends IDefaultListProps {
-	remove: (doc: IExample) => void;
+interface IToDosList extends IDefaultListProps {
+	remove: (doc: IToDos) => void;
 	viewComplexTable: boolean;
 	setViewComplexTable: (_enable: boolean) => void;
-	examples: IExample[];
+	toDoss: IToDos[];
 	setFilter: (newFilter: Object) => void;
 	clearFilter: () => void;
 }
 
-const ExampleList = (props: IExampleList) => {
+const ToDosList = (props: IToDosList) => {
 	const {
-		examples,
+		toDoss,
 		navigate,
 		remove,
 		showDeleteDialog,
@@ -52,10 +55,10 @@ const ExampleList = (props: IExampleList) => {
 		isMobile
 	} = props;
 
-    const idExample = nanoid();
+    const idToDos = nanoid();
 
 	const onClick = (_event: React.SyntheticEvent, id: string) => {
-		navigate('/example/view/' + id);
+		navigate('/toDos/view/' + id);
 	};
 
 	const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
@@ -86,7 +89,7 @@ const ExampleList = (props: IExampleList) => {
 		// }
 	};
 
-	const click = (_e: React.SyntheticEvent) => {
+	const click = (_e: any) => {
 		if (text && text.trim().length > 0) {
 			onSearch(text.trim());
 		} else {
@@ -94,9 +97,9 @@ const ExampleList = (props: IExampleList) => {
 		}
 	};
 
-	const callRemove = (doc: IExample) => {
-		const title = 'Remover exemplo';
-		const message = `Deseja remover o exemplo "${doc.title}"?`;
+	const callRemove = (doc: IToDos) => {
+		const title = 'Remover tarefa';
+		const message = `Deseja remover a tarefa "${doc.name}"?`;
 		showDeleteDialog && showDeleteDialog(title, message, doc, remove);
 	};
 
@@ -104,12 +107,11 @@ const ExampleList = (props: IExampleList) => {
 		!!e.target.value ? setFilter({ createdby: e.target.value }) : clearFilter();
 	};
 
-	const { image, title, description, nomeUsuario } = exampleApi.getSchema();
-	const schemaReduzido = { image, title, description, nomeUsuario: { type: String, label: 'Criado por' } };
-
+	// @ts-ignore
+	// @ts-ignore
 	return (
-		<PageLayout title={'Lista de Exemplos'} actions={[]}>
-			<SearchDocField
+		<PageLayout title={'Listas de tarefas'} actions={[]}>
+			{/* <SearchDocField
 				api={userprofileApi}
 				subscribe={'getListOfusers'}
 				getOptionLabel={(doc) => doc.username || 'error'}
@@ -125,20 +127,22 @@ const ExampleList = (props: IExampleList) => {
 				placeholder={'Todos'}
 				showAll={false}
 				key={'SearchDocKey'}
-			/>
+			/> */}
 
-			{!isMobile && (
+			{/* {!isMobile && (
 				<ToggleField
 					label={'Habilitar ComplexTable'}
 					value={viewComplexTable}
 					onChange={(evt: { target: { value: boolean } }) => {
+						console.log('evt', evt, evt.target);
 						setViewComplexTable(evt.target.value);
 					}}
 				/>
-			)}
+			)} */}
 			{(!viewComplexTable || isMobile) && (
 				<>
 					<TextField
+            sx={toDosListStyle.input}
 						name={'pesquisar'}
 						label={'Pesquisar'}
 						value={text}
@@ -149,22 +153,34 @@ const ExampleList = (props: IExampleList) => {
 					/>
 
 					<SimpleTable
-						schema={schemaReduzido}
-						data={examples}
+						schema={_.pick(
+							{
+								...toDosApi.schema,
+								nomeUsuario: { type: String, label: 'Criado por' }
+							},
+							['name', 'description', 'nomeUsuario']
+						)}
+						data={toDoss}
 						onClick={onClick}
 						actions={[{ icon: <Delete />, id: 'delete', onClick: callRemove }]}
 					/>
 				</>
 			)}
 
-			{!isMobile && viewComplexTable && (
+			{/* {!isMobile && viewComplexTable && (
 				<ComplexTable
-					data={examples}
-					schema={schemaReduzido}
-					onRowClick={(row) => navigate('/example/view/' + row.id)}
+					data={toDoss}
+					schema={_.pick(
+						{
+							...toDosApi.schema,
+							nomeUsuario: { type: String, label: 'Criado por' }
+						},
+						['image', 'title', 'description', 'nomeUsuario']
+					)}
+					onRowClick={(row) => navigate('/toDos/view/' + row.id)}
 					searchPlaceholder={'Pesquisar exemplo'}
 					onDelete={callRemove}
-					onEdit={(row) => navigate('/example/edit/' + row._id)}
+					onEdit={(row) => navigate('/toDos/edit/' + row._id)}
 					toolbar={{
 						selectColumns: true,
 						exportTable: { csv: true, print: true },
@@ -173,7 +189,7 @@ const ExampleList = (props: IExampleList) => {
 					onFilterChange={onSearch}
 					loading={loading}
 				/>
-			)}
+			)} */}
 
 			<div
 				style={{
@@ -206,7 +222,7 @@ const ExampleList = (props: IExampleList) => {
 						bottom: isMobile ? 80 : 30,
 						right: 30
 					}}>
-					<Fab id={'add'} onClick={() => navigate(`/example/create/${idExample}`)} color={'primary'}>
+					<Fab id={'add'} onClick={() => navigate(`/toDos/create/${idToDos}`)} color={'primary'}>
 						<Add />
 					</Fab>
 				</div>
@@ -226,17 +242,17 @@ export const subscribeConfig = new ReactiveVar<IConfigList & { viewComplexTable:
 	viewComplexTable: false
 });
 
-const exampleSearch = initSearch(
-	exampleApi, // API
+const toDosSearch = initSearch(
+	toDosApi, // API
 	subscribeConfig, // ReactiveVar subscribe configurations
-	['title', 'description'] // list of fields
+	['name', 'description'] // list of fields
 );
 
-let onSearchExampleTyping: NodeJS.Timeout;
+let onSearchToDosTyping: NodeJS.Timeout;
 
 const viewComplexTable = new ReactiveVar(false);
 
-export const ExampleListContainer = withTracker((props: IDefaultContainerProps) => {
+export const ToDosListContainer = withTracker((props: IDefaultContainerProps) => {
 	const { showNotification } = props;
 
 	//Reactive Search/Filter
@@ -244,7 +260,7 @@ export const ExampleListContainer = withTracker((props: IDefaultContainerProps) 
 	const sort = {
 		[config.sortProperties.field]: config.sortProperties.sortAscending ? 1 : -1
 	};
-	exampleSearch.setActualConfig(config);
+	toDosSearch.setActualConfig(config);
 
 	//Subscribe parameters
 	const filter = { ...config.filter };
@@ -253,18 +269,18 @@ export const ExampleListContainer = withTracker((props: IDefaultContainerProps) 
 	const skip = (config.pageProperties.currentPage - 1) * config.pageProperties.pageSize;
 
 	//Collection Subscribe
-	const subHandle = exampleApi.subscribe('exampleList', filter, {
+	const subHandle = toDosApi.subscribe('toDosList', filter, {
 		sort,
 		limit,
 		skip
 	});
-	const examples = subHandle?.ready() ? exampleApi.find(filter, { sort }).fetch() : [];
+	const toDoss = subHandle?.ready() ? toDosApi.find(filter, { sort }).fetch() : [];
 
 	return {
-		examples,
+		toDoss,
 		loading: !!subHandle && !subHandle.ready(),
-		remove: (doc: IExample) => {
-			exampleApi.remove(doc, (e: IMeteorError) => {
+		remove: (doc: IToDos) => {
+			toDosApi.remove(doc, (e: IMeteorError) => {
 				if (!e) {
 					showNotification &&
 						showNotification({
@@ -287,14 +303,14 @@ export const ExampleListContainer = withTracker((props: IDefaultContainerProps) 
 		setViewComplexTable: (enableComplexTable: boolean) => viewComplexTable.set(enableComplexTable),
 		searchBy: config.searchBy,
 		onSearch: (...params: any) => {
-			onSearchExampleTyping && clearTimeout(onSearchExampleTyping);
-			onSearchExampleTyping = setTimeout(() => {
+			onSearchToDosTyping && clearTimeout(onSearchToDosTyping);
+			onSearchToDosTyping = setTimeout(() => {
 				config.pageProperties.currentPage = 1;
 				subscribeConfig.set(config);
-				exampleSearch.onSearch(...params);
+				toDosSearch.onSearch(...params);
 			}, 1000);
 		},
-		total: subHandle ? subHandle.total : examples.length,
+		total: subHandle ? subHandle.total : toDoss.length,
 		pageProperties: config.pageProperties,
 		filter,
 		sort,
@@ -324,4 +340,4 @@ export const ExampleListContainer = withTracker((props: IDefaultContainerProps) 
 			subscribeConfig.set(config);
 		}
 	};
-})(showLoading(ExampleList));
+})(showLoading(ToDosList));
