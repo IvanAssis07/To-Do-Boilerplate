@@ -64,7 +64,7 @@ export const AppTopMenu = (props: ILayoutProps) => {
 							themeOptions?.setDarkThemeMode(evt.target.checked);
 						}}
 					/>
-					<Box
+					{/* <Box
 						sx={{
 							display: 'flex',
 							flexDirection: 'row',
@@ -101,7 +101,7 @@ export const AppTopMenu = (props: ILayoutProps) => {
 							onClick={() => themeOptions?.setFontScale(themeOptions?.fontScale * 1.15)}>
 							{'+'}
 						</Button>
-					</Box>
+					</Box> */}
 				</Box>
 				<Button
 					aria-label="account of current user"

@@ -38,8 +38,8 @@ const background = '#FFFFFF';
 const onBackground = '#404040';
 const buttonOnHover = '#E6E7E8';
 
-const primaryGradient = 'linear-gradient(180deg, #0ABB98 0%, #08AE92 45.83%, #06A28B 69.27%, #007E7A 100%)';
-const secondaryGradient = 'linear-gradient(180deg, #034944 0%, #007E7A 100%)';
+// const primaryGradient = 'linear-gradient(180deg, #0ABB98 0%, #08AE92 45.83%, #06A28B 69.27%, #007E7A 100%)';
+// const secondaryGradient = 'linear-gradient(180deg, #034944 0%, #007E7A 100%)';
 
 const greenBackground = 'rgba(3, 73, 68, 0.75)';
 const activeBackground = 'rgba(0, 126, 122, 0.25)';

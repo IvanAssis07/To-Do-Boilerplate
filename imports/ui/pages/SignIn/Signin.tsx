@@ -58,52 +58,6 @@ export const SignIn = (props: ISignIn) => {
 		});
 	};
 
-	// const SocialLoginButton = ({ onLogin, buttonText, iconClass, customCss, iconOnly }) => (
-	// 	<Box
-	// 		onClick={onLogin}
-	// 		className="material-button-contained"
-	// 		sx={{
-	// 			width: '100%',
-	// 			display: 'flex',
-	// 			flexDirection: 'row',
-	// 			justifyContent: 'center',
-	// 			alignItems: 'center',
-	// 			height: 50,
-	// 			color: '#FFF',
-	// 			...customCss
-	// 		}}>
-	// 		<i className={iconClass} />
-	// 		{!iconOnly && <span style={{ marginLeft: 15 }}>{buttonText}</span>}
-	// 	</Box>
-	// );
-
-	// const callbackLogin = (err) => {
-	// 	if (err) {
-	// 		console.log('Login Error: ', err);
-	// 		if (err.errorType === 'Accounts.LoginCancelledError') {
-	// 			showNotification('Autenticação cancelada', 'error');
-	// 			//self.setState({ error: 'AUtenticação cancelada' })
-	// 		} else {
-	// 			showNotification(err.error, 'error');
-	// 		}
-	// 	} else {
-	// 		setRedirectToReferer(true);
-	// 		navigate('/');
-	// 	}
-	// };
-
-	// const loginFacebook = () => {
-	// 	Meteor.loginWithFacebook({ requestPermissions: ['public_profile', 'email'] }, (err) => {
-	// 		callbackLogin(err);
-	// 	});
-	// };
-
-	// const loginGoogle = () => {
-	// 	Meteor.loginWithGoogle({ requestPermissions: ['profile', 'email'] }, (err) => {
-	// 		callbackLogin(err);
-	// 	});
-	// };
-
 	React.useEffect(() => {
 		if (!!user && !!user._id) navigate('/');
 	}, [user]);
@@ -125,11 +79,11 @@ export const SignIn = (props: ISignIn) => {
             textAlign: 'center'
 					}}>
 					<Box>
-						<h2 style={signinStyle.labelAccessSystem}>
+						<h3 style={signinStyle.labelAccessSystem}>
 							{/* <img src="/images/wireframe/logo.png" style={signinStyle.imageLogo} /> */}
 							<span>Boas-vindas a sua lista de tarefas.</span>
               <span>Insira o seu e-mail e senha para efetuar o login:</span>
-						</h2>
+						</h3>
 						<SimpleForm
 							schema={{
 								email: { type: 'String', label: 'Email', optional: false },
@@ -137,7 +91,16 @@ export const SignIn = (props: ISignIn) => {
 							}}
 							onSubmit={handleSubmit}>
 							<Box>
-								<TextField label="Email" fullWidth={true} name="email" type="email" placeholder="Digite seu email" />
+								<TextField 
+                  sx={{
+                    marginBottom:2
+                  }}
+                  label="Email" 
+                  fullWidth={true} 
+                  name="email" 
+                  type="email" 
+                  placeholder="Digite seu email" 
+                />
 								<TextField
 									label="Senha"
 									fullWidth={true}
@@ -146,9 +109,6 @@ export const SignIn = (props: ISignIn) => {
 									type="password"
 								/>
 								<Box sx={signinStyle.containerButtonOptions}>
-									{/* <Button id="forgotPassword" color={'secondary'} onClick={() => navigate('/password-recovery')}>
-										Esqueci a minha senha
-									</Button> */}
 									<Button id="submit" variant={'contained'} color={'primary'}>
 										Entrar
 									</Button>
@@ -156,7 +116,7 @@ export const SignIn = (props: ISignIn) => {
 							</Box>
 						</SimpleForm>
 						<Box style={signinStyle.containerRouterSignUp}>
-							<Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/signup')}>
+              <Button id="forgotPassword" variant={'text'} color={'secondary'} onClick={() => navigate('/password-recovery')}>
 								Esqueceu sua senha? Clique aqui
 							</Button>
 						</Box>
@@ -165,45 +125,6 @@ export const SignIn = (props: ISignIn) => {
 								É novo por aqui? Cadastre-se
 							</Button>
             </Box>
-						{/* <Box
-							key="loginoptions"
-							style={{
-								paddingRight: 5,
-								width: '102%',
-								margin: 0,
-								padding: 0,
-								display: 'flex',
-								flexDirection: 'column'
-							}}>
-							<Box key="divBtnGoogle" sx={{ width: '100%' }}>
-								<SocialLoginButton
-									key="btnGoogle"
-									iconClass={'google icon'}
-									onLogin={loginGoogle}
-									buttonText={'Login pelo Google'}
-									iconOnly={false}
-									customCss={{
-										background: '#dd4b39',
-										width: '100%',
-										cursor: 'pointer'
-									}}
-								/>
-							</Box>
-							<Box key="divBtnFaceboook" style={{ width: '100%' }}>
-								<SocialLoginButton
-									key="btnFaceboook"
-									iconClass={'facebook icon'}
-									onLogin={loginFacebook}
-									buttonText={'Login pelo Facebook'}
-									iconOnly={false}
-									customCss={{
-										background: '#3B5998',
-										width: '100%',
-										cursor: 'pointer'
-									}}
-								/>
-							</Box>
-						</Box> */}
 					</Box>
 				</Box>
 			</Container>
