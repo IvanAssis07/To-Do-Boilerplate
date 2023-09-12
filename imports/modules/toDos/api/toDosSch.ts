@@ -23,10 +23,17 @@ export const toDosSch = {
         {value:'publica',label:'Pública'},
       ],
     },
+    completed: {
+      type: Boolean,
+      label: 'Concluída',
+      defaultValue: false,
+      optional: false,
+    }
 };
 
 export interface IToDos extends IDoc {
     name: string;
     description: string;
     type: string;
+    completed: boolean;
 }
