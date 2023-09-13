@@ -132,7 +132,7 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 				contrastText: appStyles.onError,
 				light: appStyles.errorContainer
 			},
-			divider: appStyles.cinza90,
+			divider: appStyles.primary,
 			action: {
 				active: appStyles.activeBackground,
 				hover: appStyles.primaryOnHover
@@ -392,7 +392,8 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 				styleOverrides: {
 					root: {
 						borderRadius: '50%',
-						padding: '6px'
+						padding: '6px',
+            color: appStyles.onPrimary
 					},
 					colorPrimary: {
 						'&:hover': {
@@ -714,7 +715,7 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 				styleOverrides: {
 					root: {
 						'& > .MuiSvgIcon-root': {
-							color: appStyles.cinza80
+							color: appStyles.onPrimary
 						},
 						'&:hover': {
 							background: appStyles.primaryOnHover,
@@ -724,7 +725,7 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 						},
 						'&.Mui-checked': {
 							'& > .MuiSvgIcon-root': {
-								color: appStyles.primary
+								color: appStyles.onPrimary
 							}
 						}
 					}
