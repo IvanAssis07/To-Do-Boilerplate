@@ -86,7 +86,7 @@ export const AppNavBar = (props: IAppNavBar) => {
 	return (
 		<AppBar position="static" enableColorOnDark>
 			<Container sx={fixedMenuLayoutStyle.containerFixedMenu}>
-				<HomeIconButton navigate={navigate} />
+				{/* <HomeIconButton navigate={navigate} /> */}
 				<Toolbar sx={fixedMenuLayoutStyle.toolbarFixedMenu}>
 					<Box
 						sx={{

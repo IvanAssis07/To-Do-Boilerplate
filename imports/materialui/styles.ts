@@ -21,13 +21,13 @@ const primary = '#c4c4c4';
 const onPrimary = '#000';
 const primaryContainer = '#DEDEDE';
 const onPrimaryContainer = '#E6E7E8';
-const primaryOnHover = 'rgba(0, 126, 122, 0.1)';
+const primaryOnHover = 'rgba(196, 196, 196, 0.3)';
 
 const secondary = '#000';
 const onSecondary = '#E6E7E8';
 const secondaryContainer = '#FFDD99';
 const onSecondaryContainer = '#E6E7E8';
-const secondaryOnHover = 'rgba(236, 177, 31, 0.2)';
+const secondaryOnHover = 'rgba(196, 196, 196, 0.3))';
 
 const error = '#B30501';
 const onError = '#FFFFFF';

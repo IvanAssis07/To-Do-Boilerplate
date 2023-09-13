@@ -1,5 +1,5 @@
 import { AccountCircle } from '@mui/icons-material';
-import { Box, Button, Container, Menu } from '@mui/material';
+import { Box, Button, Container, Menu, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DayNightToggle } from './DayNightToggle';
@@ -40,7 +40,7 @@ export const AppTopMenu = (props: ILayoutProps) => {
 	};
 
 	return (
-		<Box sx={{ width: '100%', backgroundColor: '#d5d5d5' }}>
+		<Box sx={{ width: '100%', backgroundColor: '#c4c4c4' }}>
 			<Container
 				sx={{
 					width: '100%',
@@ -48,22 +48,26 @@ export const AppTopMenu = (props: ILayoutProps) => {
 					flexDirection: 'row',
 					justifyContent: 'space-between',
 					alignItems: 'center',
-					height: 40,
-					maxHeight: 40
+					height: 60,
+					maxHeight: 60
 				}}>
 				<Box
 					sx={{
 						display: 'flex',
 						flexDirection: 'row',
 						alignItems: 'center',
-						justifyContent: 'center'
+						justifyContent: 'center',
+            marginLeft: 2,
 					}}>
-					<DayNightToggle
+            <h2>
+							<span>ToDos List</span>
+						</h2>
+					{/* <DayNightToggle
 						isDarkMode={themeOptions?.isDarkThemeMode as boolean}
 						setDarkMode={(evt) => {
 							themeOptions?.setDarkThemeMode(evt.target.checked);
 						}}
-					/>
+					/> */}
 					{/* <Box
 						sx={{
 							display: 'flex',
@@ -115,7 +119,7 @@ export const AppTopMenu = (props: ILayoutProps) => {
 						<AccountCircle id="Perfil" name="Perfil" style={appTopMenuStyle.accountCircle} />
 						<ArrowDropDownIcon
 							style={{
-								color: theme.palette.primary.main,
+								color: theme.palette.primary.contrastText,
 								width: 17
 							}}
 						/>
@@ -125,27 +129,27 @@ export const AppTopMenu = (props: ILayoutProps) => {
 					id="menu-appbar"
 					anchorEl={anchorEl as Element}
 					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
+						vertical: 'bottom',
+						horizontal: 'left'
 					}}
 					keepMounted
 					transformOrigin={{
 						vertical: 'top',
-						horizontal: 'right'
+						horizontal: 'left'
 					}}
 					open={open}
 					onClose={handleClose}>
 					{!user || !user._id
 						? [
-								<MenuItem key={'signin'} onClick={openPage('/signin')}>
+								<MenuItem sx={appTopMenuStyle.menuItem} key={'signin'} onClick={openPage('/signin')}>
 									Entrar
 								</MenuItem>
 						  ]
 						: [
-								<MenuItem key={'userprofile'} onClick={viewProfile}>
+								<MenuItem sx={appTopMenuStyle.menuItem} key={'userprofile'} onClick={viewProfile}>
 									{user.username || 'Editar'}
 								</MenuItem>,
-								<MenuItem key={'signout'} onClick={openPage('/signout')}>
+								<MenuItem sx={appTopMenuStyle.menuItem} key={'signout'} onClick={openPage('/signout')}>
 									<ExitToAppIcon fontSize="small" /> Sair
 								</MenuItem>
 						  ]}
