@@ -38,11 +38,11 @@ export const FixedMenuLayout = (props: ILayoutProps) => {
 					}}>
 					<AppTopMenu {...props} />
 
-					{showAppBar && !isMobile && <AppNavBar {...props} />}
+					{/* {showAppBar && !isMobile && <AppNavBar {...props} />} */}
 					<Box sx={fixedMenuLayoutStyle.routerSwitch}>
 						<AppRouterSwitch {...props} />
 					</Box>
-					{showAppBar && isMobile && <AppNavBar {...props} />}
+					{/* {showAppBar && isMobile && <AppNavBar {...props} />} */}
 				</Box>
 			</FixedMenuLayoutContext.Provider>
 		</Router>

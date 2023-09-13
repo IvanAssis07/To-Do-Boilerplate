@@ -429,7 +429,7 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 			MuiIcon: {
 				styleOverrides: {
 					root: {
-						fontSize: 16 * fontScale
+						fontSize: 16 * fontScale,
 					}
 				}
 			},
@@ -544,7 +544,15 @@ const getLightTheme = (props: { fontScale: number; isMobile: boolean }): IThemeO
 			MuiListItem: {
 				defaultProps: {
 					dense: true
-				}
+				},
+        styleOverrides: {
+          root: {
+            '& .MuiListItemIcon-root': {
+              color: appStyles.onPrimary,
+              minWidth: 35,
+            },
+          }
+        }
 			},
 
 			MuiTextField: {

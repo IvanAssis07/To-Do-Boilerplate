@@ -26,6 +26,21 @@ import { toDosListStyle } from './style/toDosListStyle';
 import { ComplexTable } from '/imports/ui/components/ComplexTable/ComplexTable';
 import ToggleField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleField';
 
+import Container from '@mui/material/Container';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
+
+import CheckedCircleIcon from '@mui/icons-material/CheckCircleOutline';
+import UncheckedCircleIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import IconButton from '@mui/material/IconButton';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+
 interface IToDosList extends IDefaultListProps {
 	remove: (doc: IToDos) => void;
 	viewComplexTable: boolean;
@@ -55,7 +70,7 @@ const ToDosList = (props: IToDosList) => {
 		isMobile
 	} = props;
 
-    const idToDos = nanoid();
+	const idToDos = nanoid();
 
 	const onClick = (_event: React.SyntheticEvent, id: string) => {
 		navigate('/toDos/view/' + id);
@@ -142,7 +157,7 @@ const ToDosList = (props: IToDosList) => {
 			{(!viewComplexTable || isMobile) && (
 				<>
 					<TextField
-            sx={toDosListStyle.input}
+						sx={toDosListStyle.input}
 						name={'pesquisar'}
 						label={'Pesquisar'}
 						value={text}
@@ -152,7 +167,7 @@ const ToDosList = (props: IToDosList) => {
 						action={{ icon: 'search', onClick: click }}
 					/>
 
-					<SimpleTable
+					{/* <SimpleTable
 						schema={_.pick(
 							{
 								...toDosApi.schema,
@@ -163,33 +178,81 @@ const ToDosList = (props: IToDosList) => {
 						data={toDoss}
 						onClick={onClick}
 						actions={[{ icon: <Delete />, id: 'delete', onClick: callRemove }]}
-					/>
+					/> */}
+					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+						<Divider />
+						<ListItem>
+							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
+							<ListItemIcon>
+								<AssignmentIcon />
+							</ListItemIcon>
+							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
+              <IconButton>
+								<Delete />
+							</IconButton>
+							<IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItem>
+						<Divider />
+						<ListItem>
+							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
+							<ListItemIcon>
+								<AssignmentIcon />
+							</ListItemIcon>
+							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
+							<IconButton>
+								<Delete />
+							</IconButton>
+              <IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItem>
+						<Divider />
+						<ListItem>
+							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
+							<ListItemIcon>
+								<AssignmentIcon />
+							</ListItemIcon>
+							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
+							<IconButton>
+								<Delete />
+							</IconButton>
+              <IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItem>
+						<Divider />
+						<ListItem>
+							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
+							<ListItemIcon>
+								<AssignmentIcon />
+							</ListItemIcon>
+							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
+							<IconButton>
+								<Delete />
+							</IconButton>
+              <IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItem>
+						<Divider />
+						<ListItem>
+							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
+							<ListItemIcon>
+								<AssignmentIcon />
+							</ListItemIcon>
+							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
+							<IconButton>
+								<Delete />
+							</IconButton>
+              <IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItem>
+					</List>
 				</>
 			)}
-
-			{/* {!isMobile && viewComplexTable && (
-				<ComplexTable
-					data={toDoss}
-					schema={_.pick(
-						{
-							...toDosApi.schema,
-							nomeUsuario: { type: String, label: 'Criado por' }
-						},
-						['image', 'title', 'description', 'nomeUsuario']
-					)}
-					onRowClick={(row) => navigate('/toDos/view/' + row.id)}
-					searchPlaceholder={'Pesquisar exemplo'}
-					onDelete={callRemove}
-					onEdit={(row) => navigate('/toDos/edit/' + row._id)}
-					toolbar={{
-						selectColumns: true,
-						exportTable: { csv: true, print: true },
-						searchFilter: true
-					}}
-					onFilterChange={onSearch}
-					loading={loading}
-				/>
-			)} */}
 
 			<div
 				style={{
@@ -213,20 +276,23 @@ const ToDosList = (props: IToDosList) => {
 						inputProps: { 'aria-label': 'rows per page' }
 					}}
 				/>
-			</div>
 
-			<RenderComPermissao recursos={[Recurso.EXAMPLE_CREATE]}>
-				<div
-					style={{
-						position: 'fixed',
-						bottom: isMobile ? 80 : 30,
-						right: 30
-					}}>
-					<Fab id={'add'} onClick={() => navigate(`/toDos/create/${idToDos}`)} color={'primary'}>
-						<Add />
-					</Fab>
-				</div>
-			</RenderComPermissao>
+				<RenderComPermissao recursos={[Recurso.EXAMPLE_CREATE]}>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							position: 'fixed',
+							width: '100%',
+							bottom: isMobile ? 80 : 30
+						}}>
+						<Fab id={'add'} variant="extended" onClick={() => navigate(`/toDos/create/${idToDos}`)} color={'primary'}>
+							<Add />
+							Adicionar Tarefa
+						</Fab>
+					</div>
+				</RenderComPermissao>
+			</div>
 		</PageLayout>
 	);
 };

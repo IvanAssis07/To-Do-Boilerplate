@@ -59,9 +59,11 @@ export const AppTopMenu = (props: ILayoutProps) => {
 						justifyContent: 'center',
             marginLeft: 2,
 					}}>
-            <h2>
-							<span>ToDos List</span>
-						</h2>
+            <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/')}>
+              <h2>
+                <span>ToDos List</span>
+              </h2>
+            </Button> 
 					{/* <DayNightToggle
 						isDarkMode={themeOptions?.isDarkThemeMode as boolean}
 						setDarkMode={(evt) => {
