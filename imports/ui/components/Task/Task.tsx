@@ -16,7 +16,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ITaskProps {
-	task: IToDos & { nomeUsuario: string };
+	task: IToDos & { creatorName: string };
   remove: (doc: IToDos) => void;
 }
 
@@ -35,7 +35,7 @@ export const Task = ({ task, remove }: ITaskProps) => {
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary={task.name} secondary={task.nomeUsuario} />
+        <ListItemText primary={task.name} secondary={task.creatorName} />
         <IconButton
           onClick={() => remove(task)}
         >

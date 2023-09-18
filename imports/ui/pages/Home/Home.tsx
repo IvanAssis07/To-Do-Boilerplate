@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import { Task } from '../../components/Task/Task';
 
 const Home = () => {
-	const tasks: (IToDos & { nomeUsuario: string })[] | undefined = useTracker(() => {
+	const tasks: (IToDos & { creatorName: string })[] | undefined = useTracker(() => {
 		const subHandle = toDosApi.subscribe(
 			'toDosList',
 			{},
@@ -23,7 +23,7 @@ const Home = () => {
 
 		if (subHandle) {
 			const tasks = toDosApi.find({}).fetch();
-
+      
 			return tasks;
 		}
 	}, []);

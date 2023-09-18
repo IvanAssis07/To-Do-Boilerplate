@@ -15,18 +15,16 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
         this.addTransformedPublication(
             'toDosList',
             (filter = {} , optionsPub = {}) => {
-                console.log(optionsPub);
-                
                 return this.defaultListCollectionPublication(filter, {
                     ...optionsPub,
                     projection: { name: 1, description: 1, createdby: 1 },
                 });
             },
-            (doc: IToDos & { nomeUsuario: string }) => {
+            (doc: IToDos & { creatorName: string }) => {
                 const userProfileDoc = userprofileServerApi
                     .getCollectionInstance()
                     .findOne({ _id: doc.createdby });
-                return { ...doc, nomeUsuario: userProfileDoc?.username };
+                return { ...doc, creatorName: userProfileDoc?.username };
             }
         );
 
