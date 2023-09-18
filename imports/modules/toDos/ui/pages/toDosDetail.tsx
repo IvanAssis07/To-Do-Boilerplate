@@ -14,6 +14,9 @@ import { IDefaultContainerProps, IDefaultDetailProps, IMeteorError } from '/impo
 import { useTheme } from '@mui/material/styles';
 import { showLoading } from '/imports/ui/components/Loading/Loading';
 import { toDosDetailStyle } from './style/toDosDetailStyle';
+import { useUserAccount } from '/imports/hooks/useUserAccount';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 interface IToDosDetail extends IDefaultDetailProps {
 	toDosDoc: IToDos;
@@ -28,6 +31,8 @@ const ToDosDetail = (props: IToDosDetail) => {
 	const handleSubmit = (doc: IToDos) => {
 		save(doc);
 	};
+
+  const { userId: loggedUserId } = useUserAccount();
 
 	return (
 		<PageLayout
@@ -104,7 +109,7 @@ const ToDosDetail = (props: IToDosDetail) => {
 						</Button>
 					) : null}
 
-					{!isPrintView && screenState === 'view' ? (
+					{!isPrintView && screenState === 'view' &&  (loggedUserId === toDosDoc.createdby) ? (
 						<Button
 							key={'b2'}
 							onClick={() => {

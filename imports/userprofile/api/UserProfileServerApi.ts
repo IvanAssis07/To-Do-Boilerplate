@@ -87,6 +87,7 @@ class UserProfileServerApi extends ProductServerBase<IUserProfile> {
 			if (!user) {
 				return;
 			}
+      
 			return this.collectionInstance.find({
 				email: user && user.profile && user.profile.email ? user.profile.email : null
 			});

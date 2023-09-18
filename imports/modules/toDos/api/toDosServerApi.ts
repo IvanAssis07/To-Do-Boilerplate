@@ -1,5 +1,6 @@
 // region Imports
 import { Recurso } from '../config/Recursos';
+import { Meteor } from 'meteor/meteor';
 import { toDosSch, IToDos } from './toDosSch';
 import { userprofileServerApi } from '/imports/userprofile/api/UserProfileServerApi';
 import { ProductServerBase } from '/imports/api/productServerBase';
@@ -15,9 +16,22 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
         this.addTransformedPublication(
             'toDosList',
             (filter = {} , optionsPub = {}) => {
-                return this.defaultListCollectionPublication(filter, {
+                const userId = Meteor.userId();
+
+                if (!userId) {
+                  return
+                }
+
+                return this.defaultListCollectionPublication(
+                  {
+                    ...filter,
+                    $or: [
+                      { type: 'publica' },
+                      { type: 'pessoal', createdby: userId }
+                    ]
+                  } , {
                     ...optionsPub,
-                    projection: { name: 1, description: 1, createdby: 1 },
+                    projection: { name: 1, description: 1, createdby: 1, type: 1, completed: 1 },
                 });
             },
             (doc: IToDos & { creatorName: string }) => {

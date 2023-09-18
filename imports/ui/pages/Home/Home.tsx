@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
+import { useUserAccount } from '/imports/hooks/useUserAccount';
 import { toDosApi } from '../../../modules/toDos/api/toDosApi';
 import { IConfigList } from '../../../../imports/typings/IFilterProperties';
 import { IToDos } from '../../../modules/toDos/api/toDosSch';
@@ -11,6 +12,8 @@ import Box from '@mui/material/Box';
 import { Task } from '../../components/Task/Task';
 
 const Home = () => {
+  const { userId: loggedUserId, user } = useUserAccount();
+  
 	const tasks: (IToDos & { creatorName: string })[] | undefined = useTracker(() => {
 		const subHandle = toDosApi.subscribe(
 			'toDosList',
@@ -33,13 +36,13 @@ const Home = () => {
 	return (
 		<>
 			<Container>
-				<h1>Olá, "nome do usuário"</h1>
+				<h1>Olá, {user?.username}</h1>
 				<p>Seus projetos muito mais organizados.</p>
 				<h3>Atividades recentes</h3>
 				{tasks && (
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 						{tasks.map((item: IToDos, index: number) => (
-							<Task key={index} task={item} remove={() => {}} />
+							<Task key={index} task={item} remove={() => {}} loggedUserId={loggedUserId} />
 						))}
 					</List>
 				)}

@@ -27,6 +27,7 @@ import { ComplexTable } from '/imports/ui/components/ComplexTable/ComplexTable';
 import ToggleField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleField';
 import SimpleForm from '../../../../ui/components/SimpleForm/SimpleForm';
 import { Task } from '/imports/ui/components/Task/Task';
+import { useUserAccount } from '/imports/hooks/useUserAccount';
 
 import Container from '@mui/material/Container';
 import List from '@mui/material/List';
@@ -61,6 +62,7 @@ const ToDosList = (props: IToDosList) => {
 	} = props;
 
 	const idToDos = nanoid();
+  const { userId: loggedUserId } = useUserAccount();
 
 	const onClick = (_event: React.SyntheticEvent, id: string) => {
 		navigate('/toDos/view/' + id);
@@ -111,29 +113,6 @@ const ToDosList = (props: IToDosList) => {
 	const handleSearchDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		!!e.target.value ? setFilter({ createdby: e.target.value }) : clearFilter();
 	};
-
-  // const exampleData = [
-  //   {
-  //     name: 'Projeto 1',
-  //     creator: 'Criador 1',
-  //   },
-  //   {
-  //     name: 'Projeto 2',
-  //     creator: 'Criador 2',
-  //   },
-  //   {
-  //     name: 'Projeto 3',
-  //     creator: 'Criador 3',
-  //   },
-  //   {
-  //     name: 'Projeto 4',
-  //     creator: 'Criador 4',
-  //   },
-  //   {
-  //     name: 'Projeto 5',
-  //     creator: 'Criador 5',
-  //   },
-  // ]
 
 	// @ts-ignore
 	// @ts-ignore
@@ -199,6 +178,7 @@ const ToDosList = (props: IToDosList) => {
                 <Task
                   key={index}
                   task={item}
+                  loggedUserId={loggedUserId}
                   remove={remove}
                 />
               ))
@@ -264,7 +244,7 @@ export const subscribeConfig = new ReactiveVar<IConfigList & { viewComplexTable:
 const toDosSearch = initSearch(
 	toDosApi, // API
 	subscribeConfig, // ReactiveVar subscribe configurations
-	['name', 'description'] // list of fields
+	['name'] // list of fields
 );
 
 let onSearchToDosTyping: NodeJS.Timeout;
