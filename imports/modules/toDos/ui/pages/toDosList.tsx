@@ -25,21 +25,11 @@ import { showLoading } from '/imports/ui/components/Loading/Loading';
 import { toDosListStyle } from './style/toDosListStyle';
 import { ComplexTable } from '/imports/ui/components/ComplexTable/ComplexTable';
 import ToggleField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleField';
+import SimpleForm from '../../../../ui/components/SimpleForm/SimpleForm';
+import { Task } from '/imports/ui/components/Task/Task';
 
 import Container from '@mui/material/Container';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
-
-import CheckedCircleIcon from '@mui/icons-material/CheckCircleOutline';
-import UncheckedCircleIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IconButton from '@mui/material/IconButton';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 
 interface IToDosList extends IDefaultListProps {
 	remove: (doc: IToDos) => void;
@@ -122,6 +112,29 @@ const ToDosList = (props: IToDosList) => {
 		!!e.target.value ? setFilter({ createdby: e.target.value }) : clearFilter();
 	};
 
+  // const exampleData = [
+  //   {
+  //     name: 'Projeto 1',
+  //     creator: 'Criador 1',
+  //   },
+  //   {
+  //     name: 'Projeto 2',
+  //     creator: 'Criador 2',
+  //   },
+  //   {
+  //     name: 'Projeto 3',
+  //     creator: 'Criador 3',
+  //   },
+  //   {
+  //     name: 'Projeto 4',
+  //     creator: 'Criador 4',
+  //   },
+  //   {
+  //     name: 'Projeto 5',
+  //     creator: 'Criador 5',
+  //   },
+  // ]
+
 	// @ts-ignore
 	// @ts-ignore
 	return (
@@ -179,77 +192,17 @@ const ToDosList = (props: IToDosList) => {
 						onClick={onClick}
 						actions={[{ icon: <Delete />, id: 'delete', onClick: callRemove }]}
 					/> */}
+          
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-						<Divider />
-						<ListItem>
-							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
-							<ListItemIcon>
-								<AssignmentIcon />
-							</ListItemIcon>
-							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
-              <IconButton>
-								<Delete />
-							</IconButton>
-							<IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						</ListItem>
-						<Divider />
-						<ListItem>
-							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
-							<ListItemIcon>
-								<AssignmentIcon />
-							</ListItemIcon>
-							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
-							<IconButton>
-								<Delete />
-							</IconButton>
-              <IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						</ListItem>
-						<Divider />
-						<ListItem>
-							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
-							<ListItemIcon>
-								<AssignmentIcon />
-							</ListItemIcon>
-							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
-							<IconButton>
-								<Delete />
-							</IconButton>
-              <IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						</ListItem>
-						<Divider />
-						<ListItem>
-							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
-							<ListItemIcon>
-								<AssignmentIcon />
-							</ListItemIcon>
-							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
-							<IconButton>
-								<Delete />
-							</IconButton>
-              <IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						</ListItem>
-						<Divider />
-						<ListItem>
-							<Checkbox sx={{ fontSize: 30 }} icon={<UncheckedCircleIcon />} checkedIcon={<CheckedCircleIcon />} />
-							<ListItemIcon>
-								<AssignmentIcon />
-							</ListItemIcon>
-							<ListItemText primary="Photos" secondary="Jan 9, 2014" />
-							<IconButton>
-								<Delete />
-							</IconButton>
-              <IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						</ListItem>
+						{
+              toDoss.map((item:IToDos, index: number) => (
+                <Task
+                  key={index}
+                  task={item}
+                  remove={remove}
+                />
+              ))
+            }
 					</List>
 				</>
 			)}

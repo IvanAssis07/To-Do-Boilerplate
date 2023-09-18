@@ -3,8 +3,7 @@ import { Recurso } from '../config/Recursos';
 import { toDosSch, IToDos } from './toDosSch';
 import { userprofileServerApi } from '/imports/userprofile/api/UserProfileServerApi';
 import { ProductServerBase } from '/imports/api/productServerBase';
-// endregion
-
+import { Mongo, MongoInternals } from 'meteor/mongo';
 class ToDosServerApi extends ProductServerBase<IToDos> {
     constructor() {
         super('toDos', toDosSch, {
@@ -15,8 +14,11 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 
         this.addTransformedPublication(
             'toDosList',
-            (filter = {}) => {
+            (filter = {} , optionsPub = {}) => {
+                console.log(optionsPub);
+                
                 return this.defaultListCollectionPublication(filter, {
+                    ...optionsPub,
                     projection: { name: 1, description: 1, createdby: 1 },
                 });
             },

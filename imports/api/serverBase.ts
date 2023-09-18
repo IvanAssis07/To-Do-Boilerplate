@@ -1018,7 +1018,7 @@ export class ServerApiBase<Doc extends IDoc> {
 
 	defaultListCollectionPublication(filter = {}, optionsPub: Partial<IMongoOptions<Doc>>) {
 		const user = getUser();
-
+    
 		if (this.defaultResources && this.defaultResources[`${this.collectionName?.toUpperCase()}_VIEW`]) {
 			if (!segurancaApi.podeAcessarRecurso(user, this.defaultResources[`${this.collectionName?.toUpperCase()}_VIEW`])) {
 				// throw new Meteor.Error(

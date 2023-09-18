@@ -37,6 +37,33 @@ function createDefautUser() {
             roles: ['Administrador'],
         });
         console.log('############## ADMIN CRIADO################');
+
+        let createdSecondUserId = '';
+        createdSecondUserId = Accounts.createUser({
+            username: 'Ivan',
+            email: 'ivan@mrb.com',
+            password: 'ivan@mrb.com',
+        });
+        Meteor.users.update(
+            { _id: createdSecondUserId },
+            {
+                $set: {
+                    'emails.0.verified': true,
+                    profile: {
+                        name: 'Admin',
+                        email: 'ivan@mrb.com',
+                    },
+                },
+            }
+        );
+
+        userprofileServerApi.collectionInstance.insert({
+            _id: createdSecondUserId,
+            username: 'Ivan',
+            email: 'ivan@mrb.com',
+            roles: ['Administrador'],
+        });
+        console.log('############## ADMIN CRIADO################');
     }
 }
 

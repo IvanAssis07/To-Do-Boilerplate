@@ -92,6 +92,12 @@ class UserProfileServerApi extends ProductServerBase<IUserProfile> {
 			});
 		});
 
+    this.addPublication('getUserName', ({_id}: IDoc) => {
+      return this.defaultListCollectionPublication(_id, {
+				projection: { username: 1 }
+			});
+    });
+
 		// @ts-ignore
 		userprofileData.collectionInstance = this.collectionInstance;
 	}
