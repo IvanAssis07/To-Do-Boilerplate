@@ -76,7 +76,7 @@ export const PageLayout = (props: IPageLayout) => {
 									lineHeight: 1.2,
 									letterSpacing: '0.78px',
 									textAlign: 'center',
-									color: '#ffffff',
+									color: '#000',
 									textTransform: 'none',
 									flexDirection: 'row',
 									alignItems: 'center'

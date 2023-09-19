@@ -8,6 +8,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuItem from '@mui/material/MenuItem';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { appTopMenuStyle } from './AppTopMenuStyle';
+import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 
 export const AppTopMenu = (props: ILayoutProps) => {
 	const { user, showDrawer, showWindow, theme, themeOptions } = props;
@@ -60,8 +61,9 @@ export const AppTopMenu = (props: ILayoutProps) => {
             marginLeft: 2,
 					}}>
             <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/')}>
+              <HomeSharpIcon fontSize='large'/>
               <h2>
-                <span>ToDos List</span>
+                <span> ToDos List</span>
               </h2>
             </Button> 
 					{/* <DayNightToggle

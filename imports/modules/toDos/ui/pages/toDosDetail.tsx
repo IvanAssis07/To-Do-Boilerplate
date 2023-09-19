@@ -42,35 +42,7 @@ const ToDosDetail = (props: IToDosDetail) => {
 				screenState === 'view' ? 'Visualizar tarefa' : screenState === 'edit' ? 'Editar tarefa' : 'Criar tarefa'
 			}
 			onBack={() => navigate('/toDos')}
-			actions={[
-				!isPrintView ? (
-					<span
-						key={'ExempleDetail-spanPrintViewKEY'}
-						style={{
-							cursor: 'pointer',
-							marginRight: 10,
-							color: theme.palette.secondary.main
-						}}
-						onClick={() => {
-							navigate(`/toDos/printview/${toDosDoc._id}`);
-						}}>
-						<Print key={'ExempleDetail-spanPrintKEY'} />
-					</span>
-				) : (
-					<span
-						key={'ExempleDetail-spanNotPrintViewKEY'}
-						style={{
-							cursor: 'pointer',
-							marginRight: 10,
-							color: theme.palette.secondary.main
-						}}
-						onClick={() => {
-							navigate(`/toDos/view/${toDosDoc._id}`);
-						}}>
-						<Close key={'ExempleDetail-spanCloseKEY'} />
-					</span>
-				)
-			]}>
+      >
 			<SimpleForm
 				key={'ExempleDetail-SimpleFormKEY'}
 				mode={screenState}
@@ -87,7 +59,7 @@ const ToDosDetail = (props: IToDosDetail) => {
 					<SelectField key={'f2-tipoKEY'} placeholder="Selecione um tipo" name="type" />
 				</FormGroup> */}
         <FormGroup key={'fieldsTwo'}>
-          <ToggleSwitchField key={'f2-tipoKEY'} name="private"/>
+          <ToggleSwitchField key={'f2-tipoKEY'} name="private" />
         </FormGroup>
 				<div
 					key={'Buttons'}
