@@ -29,9 +29,10 @@ export default ({
 
     const handleChangeSwitch = (event: React.BaseSyntheticEvent) => {
         if (!readOnly) {
-            const value = {};
-            value[name] = event.target.checked;
-            onChange({ target: { value } }, { name, value });
+            const value = event.target.checked;
+            console.log(value);
+            
+            onChange({ target: { value } }, value);
         }
     };
 
@@ -63,13 +64,13 @@ export default ({
                 <FormControlLabel
                     style={toggleSwitchStyle.checksList}
                     control={
-                        <Switch checked={!!value[name]} onChange={handleChangeSwitch} name={name} />
+                        <Switch checked={!!value} onChange={handleChangeSwitch} name={name} />
                     }
                     key={name}
-                    value={value}
+                    value={name}
                     id={name}
                     name={name}
-                    label={value ? 'Ativo' : 'Inativo'}
+                    label={value ? 'Task privada' : 'Task publica'}
                     {..._.omit(otherProps, ['disabled', 'checked'])}
                 />
             )}

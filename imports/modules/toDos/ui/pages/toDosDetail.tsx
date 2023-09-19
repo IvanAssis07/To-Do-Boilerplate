@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '/imports/ui/components/SimpleFormFields/TextField/TextField';
 import SelectField from '../../../../ui/components/SimpleFormFields/SelectField/SelectField';
+import ToggleSwitchField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleSwitchField';
 import Print from '@mui/icons-material/Print';
 import Close from '@mui/icons-material/Close';
 import { PageLayout } from '/imports/ui/layouts/PageLayout';
@@ -38,7 +39,7 @@ const ToDosDetail = (props: IToDosDetail) => {
 		<PageLayout
 			key={'ExemplePageLayoutDetailKEY'}
 			title={
-				screenState === 'view' ? 'Visualizar exemplo' : screenState === 'edit' ? 'Editar Exemplo' : 'Criar exemplo'
+				screenState === 'view' ? 'Visualizar tarefa' : screenState === 'edit' ? 'Editar tarefa' : 'Criar tarefa'
 			}
 			onBack={() => navigate('/toDos')}
 			actions={[
@@ -82,9 +83,12 @@ const ToDosDetail = (props: IToDosDetail) => {
 					<TextField sx={ toDosDetailStyle.input } key={'f1-tituloKEY'} placeholder="Nome" name="name" />
 					<TextField sx={ toDosDetailStyle.input } key={'f1-descricaoKEY'} placeholder="Descrição" name="description" />
 				</FormGroup>
-				<FormGroup key={'fieldsTwo'}>
+				{/* <FormGroup key={'fieldsTwo'}>
 					<SelectField key={'f2-tipoKEY'} placeholder="Selecione um tipo" name="type" />
-				</FormGroup>
+				</FormGroup> */}
+        <FormGroup key={'fieldsTwo'}>
+          <ToggleSwitchField key={'f2-tipoKEY'} name="private"/>
+        </FormGroup>
 				<div
 					key={'Buttons'}
 					style={{
@@ -144,6 +148,8 @@ export const ToDosDetailContainer = withTracker((props: IToDosDetailContainer) =
 		toDosDoc,
 		save: (doc: IToDos, _callback: () => void) => {
 			const selectedAction = screenState === 'create' ? 'insert' : 'update';
+      console.log(doc);
+      
 			toDosApi[selectedAction]({...doc, completed: false}, (e: IMeteorError, r: string) => {
 				if (!e) {
 					// navigate(`/toDos/view/${screenState === 'create' ? r : doc._id}`);

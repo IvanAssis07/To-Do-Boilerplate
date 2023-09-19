@@ -87,7 +87,7 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 					<AssignmentIcon />
 				</ListItemIcon>
 				<ListItemText primary={task.name} secondary={task.creatorName} />
-				{task.type === 'pessoal' && <LockPersonIcon sx={{ marginRight: '6px' }} fontSize="small" />}
+				{task.private === true && <LockPersonIcon sx={{ marginRight: '6px' }} fontSize="small" />}
 				{loggedUserId === task.createdby && (
 					<IconButton onClick={() => callRemove(task)}>
 						<DeleteIcon />

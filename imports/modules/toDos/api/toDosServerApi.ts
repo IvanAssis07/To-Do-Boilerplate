@@ -26,12 +26,12 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
                   {
                     ...filter,
                     $or: [
-                      { type: 'publica' },
-                      { type: 'pessoal', createdby: userId }
+                      { private: false },
+                      { private: true, createdby: userId }
                     ]
                   } , {
                     ...optionsPub,
-                    projection: { name: 1, description: 1, createdby: 1, type: 1, completed: 1 },
+                    projection: { name: 1, description: 1, createdby: 1, private: 1, completed: 1 },
                 });
             },
             (doc: IToDos & { creatorName: string }) => {

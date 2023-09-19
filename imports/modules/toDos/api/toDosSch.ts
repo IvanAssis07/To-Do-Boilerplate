@@ -13,27 +13,33 @@ export const toDosSch = {
         defaultValue: '',
         optional: false,
     },
-    type: {
-      type: String,
-      label: 'Tipo',
-      defaultValue: '',
+    // type: {
+    //   type: String,
+    //   label: 'Tipo',
+    //   defaultValue: '',
+    //   optional: false,
+    //   options:[
+    //     {value:'pessoal',label:'Pessoal'},
+    //     {value:'publica',label:'Pública'},
+    //   ],
+    // },
+    private: {
+      type: Boolean,
+      label: 'Tipo de tarefa',
+      defaultValue: false,
       optional: false,
-      options:[
-        {value:'pessoal',label:'Pessoal'},
-        {value:'publica',label:'Pública'},
-      ],
     },
     completed: {
       type: Boolean,
       label: 'Concluída',
       defaultValue: false,
-      optional: false,
+      optional: true,
     }
 };
 
 export interface IToDos extends IDoc {
     name: string;
     description: string;
-    type: string;
+    private: boolean;
     completed: boolean;
 }
