@@ -174,11 +174,11 @@
 }
 
 #awn-popup-wrapper .awn-buttons .awn-btn-success {
-    background: #40871d;
+    background: #000;
 }
 
 #awn-popup-wrapper .awn-buttons .awn-btn-success:hover {
-    background: #367218;
+    background: #000;
 }
 
 #awn-popup-wrapper .awn-buttons .awn-btn-cancel {
@@ -316,8 +316,8 @@
 }
 
 .awn-toast.awn-toast-success {
-    background: #dff8d3;
-    color: #40871d;
+    background: #e6e7e8;
+    color: #000;
 }
 
 .awn-toast.awn-toast-success .awn-toast-wrapper {
@@ -326,7 +326,7 @@
 
 .awn-toast.awn-toast-success .fa,
 .awn-toast.awn-toast-success b {
-    color: #40871d;
+    color: #000;
 }
 
 .awn-toast.awn-toast-success .awn-toast-progress-bar:after {
@@ -353,7 +353,7 @@
 
 .awn-toast.awn-toast-alert {
     background: #f8d5d3;
-    color: #a92019;
+    color: #000;
 }
 
 .awn-toast.awn-toast-alert .awn-toast-wrapper {
@@ -362,7 +362,7 @@
 
 .awn-toast.awn-toast-alert .fa,
 .awn-toast.awn-toast-alert b {
-    color: #a92019;
+    color: #000;
 }
 
 .awn-toast.awn-toast-alert .awn-toast-progress-bar:after {
@@ -370,8 +370,8 @@
 }
 
 .awn-toast.awn-toast-warning {
-    background: #ffe7cc;
-    color: #c26700;
+    background: #e6e7e8;
+    color: #000;
 }
 
 .awn-toast.awn-toast-warning .awn-toast-wrapper {
@@ -380,7 +380,7 @@
 
 .awn-toast.awn-toast-warning .fa,
 .awn-toast.awn-toast-warning b {
-    color: #c26700;
+    color: #000;
 }
 
 .awn-toast.awn-toast-warning .awn-toast-progress-bar:after {

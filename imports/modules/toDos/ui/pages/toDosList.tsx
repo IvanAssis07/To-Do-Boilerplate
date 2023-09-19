@@ -31,6 +31,7 @@ import { useUserAccount } from '/imports/hooks/useUserAccount';
 
 import Container from '@mui/material/Container';
 import List from '@mui/material/List';
+import Box from '@mui/material/Box';
 
 interface IToDosList extends IDefaultListProps {
 	remove: (doc: IToDos) => void;
@@ -171,7 +172,6 @@ const ToDosList = (props: IToDosList) => {
 						onClick={onClick}
 						actions={[{ icon: <Delete />, id: 'delete', onClick: callRemove }]}
 					/> */}
-          
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 						{
               toDoss.map((item:IToDos, index: number) => (
@@ -179,7 +179,6 @@ const ToDosList = (props: IToDosList) => {
                   key={index}
                   task={item}
                   loggedUserId={loggedUserId}
-                  remove={remove}
                 />
               ))
             }
@@ -278,26 +277,26 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 	return {
 		toDoss,
 		loading: !!subHandle && !subHandle.ready(),
-		remove: (doc: IToDos) => {
-			toDosApi.remove(doc, (e: IMeteorError) => {
-				if (!e) {
-					showNotification &&
-						showNotification({
-							type: 'success',
-							title: 'Operação realizada!',
-							description: `O exemplo foi removido com sucesso!`
-						});
-				} else {
-					console.log('Error:', e);
-					showNotification &&
-						showNotification({
-							type: 'warning',
-							title: 'Operação não realizada!',
-							description: `Erro ao realizar a operação: ${e.reason}`
-						});
-				}
-			});
-		},
+		// remove: (doc: IToDos) => {
+		// 	toDosApi.remove(doc, (e: IMeteorError) => {
+		// 		if (!e) {
+		// 			showNotification &&
+		// 				showNotification({
+		// 					type: 'success',
+		// 					title: 'Operação realizada!',
+		// 					description: `O exemplo foi removido com sucesso!`
+		// 				});
+		// 		} else {
+		// 			console.log('Error:', e);
+		// 			showNotification &&
+		// 				showNotification({
+		// 					type: 'warning',
+		// 					title: 'Operação não realizada!',
+		// 					description: `Erro ao realizar a operação: ${e.reason}`
+		// 				});
+		// 		}
+		// 	});
+		// },
 		viewComplexTable: viewComplexTable.get(),
 		setViewComplexTable: (enableComplexTable: boolean) => viewComplexTable.set(enableComplexTable),
 		searchBy: config.searchBy,

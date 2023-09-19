@@ -26,7 +26,8 @@ export const DialogContainer = (
 ) => {
 	return (
 		<Dialog aria-labelledby="Modal" onClose={options.onClose} open={options.open} PaperProps={options.customPaperProps}>
-			{options.title ? (
+			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      {options.title ? (
 				<DialogTitle id="simple-dialog-title">
 					<div style={appGeneralStyle.containerOptions}>
 						{options.icon ? options.icon : null}
@@ -35,9 +36,10 @@ export const DialogContainer = (
 				</DialogTitle>
 			) : null}
 			<DialogContent>{options.content!(options)}</DialogContent>
-			<DialogActions style={options.customDialogActionsProps}>
+			<DialogActions style={{marginTop: 0, ...options.customDialogActionsProps}}>
 				{options.actions ? options.actions(options) : null}
 			</DialogActions>
+      </div>
 		</Dialog>
 	);
 };

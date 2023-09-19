@@ -42,7 +42,7 @@ const Home = () => {
 				{tasks && (
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 						{tasks.map((item: IToDos, index: number) => (
-							<Task key={index} task={item} remove={() => {}} loggedUserId={loggedUserId} />
+							<Task key={index} task={item} loggedUserId={loggedUserId} />
 						))}
 					</List>
 				)}

@@ -104,7 +104,7 @@ export const AppGeneralComponents = (props: IGeneralComponentsProps) => {
 					color={'primary'}>
 					Sim
 				</Button>
-			]
+			],
 		};
 		setState({
 			...state,
