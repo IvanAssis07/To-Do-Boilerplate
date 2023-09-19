@@ -63,53 +63,9 @@ export const AppTopMenu = (props: ILayoutProps) => {
             <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/')}>
               <HomeSharpIcon fontSize='large'/>
               <h2>
-                <span> ToDos List</span>
+                <span>ToDos List</span>
               </h2>
             </Button> 
-					{/* <DayNightToggle
-						isDarkMode={themeOptions?.isDarkThemeMode as boolean}
-						setDarkMode={(evt) => {
-							themeOptions?.setDarkThemeMode(evt.target.checked);
-						}}
-					/> */}
-					{/* <Box
-						sx={{
-							display: 'flex',
-							flexDirection: 'row',
-							alignItems: 'center',
-							border: '1px solid #CCC',
-							color: theme.palette.primary.main
-						}}>
-						<Button
-							variant={'contained'}
-							color={'secondary'}
-							sx={{
-								minWidth: 15,
-								minHeight: 15,
-								width: 15,
-								height: 15,
-								maxWidth: 15,
-								maxHeight: 15
-							}}
-							onClick={() => themeOptions?.setFontScale(themeOptions?.fontScale * 0.85)}>
-							{'-'}
-						</Button>
-						{'F'}
-						<Button
-							variant={'contained'}
-							color={'secondary'}
-							sx={{
-								minWidth: 15,
-								minHeight: 15,
-								width: 15,
-								height: 15,
-								maxWidth: 15,
-								maxHeight: 15
-							}}
-							onClick={() => themeOptions?.setFontScale(themeOptions?.fontScale * 1.15)}>
-							{'+'}
-						</Button>
-					</Box> */}
 				</Box>
 				<Button
 					aria-label="account of current user"

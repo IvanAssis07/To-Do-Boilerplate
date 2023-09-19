@@ -30,7 +30,7 @@ export const passwordRecoveryStyle = {
 		maxWidth: 100
 	},
 	containerButtonOptions: {
-		marginTop: 30,
+		marginTop: 4,
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',

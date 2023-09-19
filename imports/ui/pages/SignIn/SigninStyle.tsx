@@ -57,7 +57,7 @@ const signinStyle = {
 		marginLeft: 15
 	},
 	containerRouterSignUp: {
-		marginTop: 30
+		marginTop: 8
 	},
 	containerLoginOptions: {
 		paddingRight: 5,

@@ -32,9 +32,13 @@ export const signUpStyle = {
 	containerButtonOptions: {
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
+    marginTop: 1
 	},
 	containerRouterSignIn: {
-		color: '#444'
-	}
+		marginTop: 2
+	},
+  input: {
+    marginBottom: 2
+  },
 };

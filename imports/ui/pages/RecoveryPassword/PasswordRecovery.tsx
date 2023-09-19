@@ -56,25 +56,35 @@ export const PasswordRecovery = (props: IDefaultContainerProps) => {
 
 	return (
 		<Container style={passwordRecoveryStyle.containerRecoveryPassword}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '10%',
+          textAlign: 'center'
+        }}
+      >
 			<h2 style={passwordRecoveryStyle.labelAccessSystem}>
-				<img src="/images/wireframe/logo.png" style={passwordRecoveryStyle.imageLogo} />
-				{'Acessar o sistema'}
+				Acessar o sistema
 			</h2>
-			<SimpleForm
-				schema={{
-					email: { type: 'String', label: 'Email', optional: false }
-				}}
-				onSubmit={handleSubmit}>
-				<TextField label="Email" icon="user" name="email" type="email" placeholder="Digite seu email" />
-				<Box sx={passwordRecoveryStyle.containerButtonOptions}>
-					<Button color={'secondary'} onClick={() => navigate('/signin')}>
-						Voltar
-					</Button>
-					<Button id="submit" color={'primary'} variant={'outlined'}>
-						Recuperar a senha
-					</Button>
-				</Box>
-			</SimpleForm>
+        <SimpleForm
+          schema={{
+            email: { type: 'String', label: 'Email', optional: false }
+          }}
+          onSubmit={handleSubmit}>
+          <TextField label="Email" icon="user" name="email" type="email" placeholder="Digite seu email" />
+          <Box sx={passwordRecoveryStyle.containerButtonOptions}>
+            <Button color={'primary'} onClick={() => navigate('/signin')}>
+              Voltar
+            </Button>
+            <Button id="submit" color={'secondary'} variant={'outlined'}>
+              Recuperar a senha
+            </Button>
+          </Box>
+        </SimpleForm>
+      </Box>
 		</Container>
 	);
 };

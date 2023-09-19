@@ -22,7 +22,7 @@ interface ISignUp {
 }
 
 export const SignUp = (props: ISignUp) => {
-	const { showNotification } = props;
+	const { showNotification, navigate } = props;
 
 	const handleSubmit = (doc: { email: string; password: string }) => {
 		const { email, password } = doc;
@@ -49,38 +49,47 @@ export const SignUp = (props: ISignUp) => {
 
 	return (
 		<Container style={signUpStyle.containerSignUp}>
-			<h2 style={signUpStyle.labelRegisterSystem}>
-				<img src="/images/wireframe/logo.png" style={signUpStyle.imageLogo} />
-				{'Cadastrar no sistema'}
-			</h2>
-			<SimpleForm
-				schema={{
-					email: {
-						type: String,
-						label: 'Email',
-						optional: false
-					},
-					password: {
-						type: String,
-						label: 'Senha',
-						optional: false
-					}
-				}}
-				onSubmit={handleSubmit}>
-				<TextField id="Email" label="Email" fullWidth name="email" type="email" placeholder="Digite um email" />
-				<TextField id="Senha" label="Senha" fullWidth name="password" placeholder="Digite uma senha" type="password" />
-				<Box sx={signUpStyle.containerButtonOptions}>
-					<Button color={'primary'} variant={'outlined'} id="submit">
-						Cadastrar
-					</Button>
-				</Box>
-			</SimpleForm>
-			<Box sx={signUpStyle.containerRouterSignIn}>
-				Já tem uma conta? Faça login clicando{' '}
-				<Link to="/signin" color={'secondary'}>
-					aqui
-				</Link>
-			</Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '10%',
+          textAlign: 'center'
+        }}
+      >
+        <h2 style={signUpStyle.labelRegisterSystem}>
+          {'Cadastrar no sistema'}
+        </h2>
+        <SimpleForm
+          schema={{
+            email: {
+              type: String,
+              label: 'Email',
+              optional: false
+            },
+            password: {
+              type: String,
+              label: 'Senha',
+              optional: false
+            }
+          }}
+          onSubmit={handleSubmit}>
+          <TextField sx={signUpStyle.input} id="Email" label="Email" fullWidth name="email" type="email" placeholder="Digite um email" />
+          <TextField sx={signUpStyle.input} id="Senha" label="Senha" fullWidth name="password" placeholder="Digite uma senha" type="password" />
+          <Box sx={signUpStyle.containerButtonOptions}>
+            <Button variant={'contained'} color={'primary'} id='submit'>
+              Cadastrar
+            </Button>
+          </Box>
+        </SimpleForm>
+        <Box sx={signUpStyle.containerRouterSignIn}>
+            <Button id="signup" variant={'text'} color={'secondary'} onClick={() => navigate('/')}>
+              Já tem uma conta? Faça login clicando aqui.
+            </Button>
+        </Box>
+      </Box>
 		</Container>
 	);
 };
