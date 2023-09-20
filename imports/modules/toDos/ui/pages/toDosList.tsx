@@ -65,17 +65,8 @@ const ToDosList = (props: IToDosList) => {
 	const idToDos = nanoid();
   const { userId: loggedUserId } = useUserAccount();
 
-	const onClick = (_event: React.SyntheticEvent, id: string) => {
-		navigate('/toDos/view/' + id);
-	};
-
 	const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
 		setPage(newPage + 1);
-	};
-
-	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setPageSize(parseInt(event.target.value, 10));
-		setPage(1);
 	};
 
 	const [text, setText] = React.useState(searchBy || '');
@@ -105,12 +96,6 @@ const ToDosList = (props: IToDosList) => {
 		}
 	};
 
-	const callRemove = (doc: IToDos) => {
-		const title = 'Remover tarefa';
-		const message = `Deseja remover a tarefa "${doc.name}"?`;
-		showDeleteDialog && showDeleteDialog(title, message, doc, remove);
-	};
-
 	const handleSearchDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		!!e.target.value ? setFilter({ createdby: e.target.value }) : clearFilter();
 	};
@@ -119,34 +104,6 @@ const ToDosList = (props: IToDosList) => {
 	// @ts-ignore
 	return (
 		<PageLayout title={'Listas de tarefas'} actions={[]}>
-			{/* <SearchDocField
-				api={userprofileApi}
-				subscribe={'getListOfusers'}
-				getOptionLabel={(doc) => doc.username || 'error'}
-				sort={{ username: 1 }}
-				textToQueryFilter={(textoPesquisa) => {
-					textoPesquisa = textoPesquisa.replace(/[+[\\?()*]/g, '\\$&');
-					return { username: new RegExp(textoPesquisa, 'i') };
-				}}
-				autocompleteOptions={{ noOptionsText: 'Não encontrado' }}
-				name={'userId'}
-				label={'Pesquisar com SearchDocField'}
-				onChange={handleSearchDocChange}
-				placeholder={'Todos'}
-				showAll={false}
-				key={'SearchDocKey'}
-			/> */}
-
-			{/* {!isMobile && (
-				<ToggleField
-					label={'Habilitar ComplexTable'}
-					value={viewComplexTable}
-					onChange={(evt: { target: { value: boolean } }) => {
-						console.log('evt', evt, evt.target);
-						setViewComplexTable(evt.target.value);
-					}}
-				/>
-			)} */}
 			{(!viewComplexTable || isMobile) && (
 				<>
 					<TextField
@@ -159,19 +116,6 @@ const ToDosList = (props: IToDosList) => {
 						placeholder="Digite aqui o que deseja pesquisa..."
 						action={{ icon: 'search', onClick: click }}
 					/>
-
-					{/* <SimpleTable
-						schema={_.pick(
-							{
-								...toDosApi.schema,
-								nomeUsuario: { type: String, label: 'Criado por' }
-							},
-							['name', 'description', 'nomeUsuario']
-						)}
-						data={toDoss}
-						onClick={onClick}
-						actions={[{ icon: <Delete />, id: 'delete', onClick: callRemove }]}
-					/> */}
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 						{
               toDoss.map((item:IToDos, index: number) => (
@@ -195,18 +139,12 @@ const ToDosList = (props: IToDosList) => {
 				}}>
 				<TablePagination
 					style={{ width: 'fit-content', overflow: 'unset' }}
-					rowsPerPageOptions={[10, 25, 50, 100]}
-					labelRowsPerPage={''}
+					rowsPerPageOptions={[]}
 					component="div"
 					count={total || 0}
-					rowsPerPage={pageProperties.pageSize}
+					rowsPerPage={4}
 					page={pageProperties.currentPage - 1}
 					onPageChange={handleChangePage}
-					onRowsPerPageChange={handleChangeRowsPerPage}
-					labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-					SelectProps={{
-						inputProps: { 'aria-label': 'rows per page' }
-					}}
 				/>
 
 				<RenderComPermissao recursos={[Recurso.EXAMPLE_CREATE]}>
@@ -216,7 +154,7 @@ const ToDosList = (props: IToDosList) => {
 							justifyContent: 'center',
 							position: 'fixed',
 							width: '100%',
-							bottom: isMobile ? 80 : 30
+							bottom: isMobile ? 80 : '25%'
 						}}>
 						<Fab id={'add'} variant="extended" onClick={() => navigate(`/toDos/create/${idToDos}`)} color={'primary'}>
 							<Add />
@@ -232,7 +170,7 @@ const ToDosList = (props: IToDosList) => {
 export const subscribeConfig = new ReactiveVar<IConfigList & { viewComplexTable: boolean }>({
 	pageProperties: {
 		currentPage: 1,
-		pageSize: 25
+		pageSize: 4
 	},
 	sortProperties: { field: 'createdat', sortAscending: true },
 	filter: {},
@@ -277,26 +215,6 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 	return {
 		toDoss,
 		loading: !!subHandle && !subHandle.ready(),
-		// remove: (doc: IToDos) => {
-		// 	toDosApi.remove(doc, (e: IMeteorError) => {
-		// 		if (!e) {
-		// 			showNotification &&
-		// 				showNotification({
-		// 					type: 'success',
-		// 					title: 'Operação realizada!',
-		// 					description: `O exemplo foi removido com sucesso!`
-		// 				});
-		// 		} else {
-		// 			console.log('Error:', e);
-		// 			showNotification &&
-		// 				showNotification({
-		// 					type: 'warning',
-		// 					title: 'Operação não realizada!',
-		// 					description: `Erro ao realizar a operação: ${e.reason}`
-		// 				});
-		// 		}
-		// 	});
-		// },
 		viewComplexTable: viewComplexTable.get(),
 		setViewComplexTable: (enableComplexTable: boolean) => viewComplexTable.set(enableComplexTable),
 		searchBy: config.searchBy,

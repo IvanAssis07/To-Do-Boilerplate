@@ -120,7 +120,6 @@ export const ToDosDetailContainer = withTracker((props: IToDosDetailContainer) =
 		toDosDoc,
 		save: (doc: IToDos, _callback: () => void) => {
 			const selectedAction = screenState === 'create' ? 'insert' : 'update';
-      console.log(doc);
       
 			toDosApi[selectedAction]({...doc, completed: false}, (e: IMeteorError, r: string) => {
 				if (!e) {

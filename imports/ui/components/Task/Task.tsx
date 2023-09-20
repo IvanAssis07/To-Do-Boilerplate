@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 import CheckedCircleIcon from '@mui/icons-material/CheckCircleOutline';
 import UncheckedCircleIcon from '@mui/icons-material/RadioButtonUncheckedOutlined';
@@ -25,68 +26,93 @@ interface ITaskProps {
 	loggedUserId: string | undefined | null;
 }
 
-
 export const Task = ({ task, loggedUserId }: ITaskProps) => {
+	const navigate = useNavigate();
+
 	const onClick = (id: string | undefined) => {
 		navigate('/toDos/view/' + id);
 	};
 
+	const appContext = useContext(AppContext);
 
-  const appContext = useContext(AppContext);
-
-  const callRemove = (doc: IToDos) => {
-    const title = 'Remover exemplo';
+	const callRemove = (doc: IToDos) => {
+		const title = 'Remover exemplo';
 		const message = `Deseja remover o exemplo "${doc.name}"?`;
-    appContext.showDeleteDialog(title, message, doc, remove);
-  }
+		appContext.showDeleteDialog(title, message, doc, remove);
+	};
 
-  const remove = (doc: IToDos) => {
-    toDosApi.remove(doc, (error: IMeteorError) => {
-      if (error) {
-        console.log('Error: ', error);
-        showNotification({
-          type: 'warning',
-          title: 'Operação não realizada!',
-          description: `Erro ao realizar a operação: ${error.reason}`
-        });
-      } else {
-        showNotification({
-          type: 'success',
-          title: 'Operação realizada!',
-          description: `A tarefa foi removida com sucesso!`
-        });
-      }
-    });
-  }
+	const remove = (doc: IToDos) => {
+		toDosApi.remove(doc, (error: IMeteorError) => {
+			if (error) {
+				console.log('Error: ', error);
+				showNotification({
+					type: 'warning',
+					title: 'Operação não realizada!',
+					description: `Erro ao realizar a operação: ${error.reason}`
+				});
+			} else {
+				showNotification({
+					type: 'success',
+					title: 'Operação realizada!',
+					description: `A tarefa foi removida com sucesso!`
+				});
+			}
+		});
+	};
 
 	const [completed, setCompleted] = useState(task.completed);
 
-	const navigate = useNavigate();
+	const handleCheckBoxClick = () => {
+		setCompleted(!completed);
+		task.completed = completed;
+
+		toDosApi['update'](task, (e: IMeteorError) => {
+			if (e) {
+				console.log('Error: ', e);
+				showNotification({
+					type: 'warning',
+					title: 'Operação não realizada!',
+					description: `Erro ao realizar a operação: ${e.reason}`
+				});
+			} else {
+				showNotification({
+					type: 'success',
+					title: 'Operação realizada!',
+					description: `Estado da tarefa alterado com sucesso!`
+				});
+			}
+		});
+	};
 
 	return (
 		<>
 			<Divider />
 			<ListItem>
-				{task.completed === true ? (
-					<Checkbox
-						sx={{ fontSize: 30 }}
-						icon={<UncheckedCircleIcon />}
-						checkedIcon={<CheckedCircleIcon />}
-						onClick={() => setCompleted(!completed)}
-					/>
-				) : (
-					<Checkbox
-						sx={{ fontSize: 30 }}
-						icon={<UncheckedCircleIcon />}
-						checkedIcon={<CheckedCircleIcon />}
-						onClick={() => setCompleted(!completed)}
-					/>
-				)}
-
+				<Checkbox
+					sx={{ fontSize: 30 }}
+					icon={<UncheckedCircleIcon />}
+					checkedIcon={<CheckedCircleIcon />}
+					checked={completed}
+					onClick={() => {
+						handleCheckBoxClick();
+					}}
+				/>
 				<ListItemIcon>
 					<AssignmentIcon />
 				</ListItemIcon>
-				<ListItemText primary={task.name} secondary={task.creatorName} />
+				<ListItemText
+					disableTypography
+					primary={
+						<Typography variant="body2" style={completed ? { textDecoration: 'line-through' } : {}}>
+							{task.name}
+						</Typography>
+					}
+					secondary={
+						<Typography variant="body2" style={completed ? { textDecoration: 'line-through' } : {}}>
+							{task.creatorName}
+						</Typography>
+					}
+				/>
 				{task.private === true && <LockPersonIcon sx={{ marginRight: '6px' }} fontSize="small" />}
 				{loggedUserId === task.createdby && (
 					<IconButton onClick={() => callRemove(task)}>

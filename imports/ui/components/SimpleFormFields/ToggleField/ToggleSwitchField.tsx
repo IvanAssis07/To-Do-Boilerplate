@@ -30,8 +30,7 @@ export default ({
     const handleChangeSwitch = (event: React.BaseSyntheticEvent) => {
         if (!readOnly) {
             const value = event.target.checked;
-            console.log(value);
-            
+
             onChange({ target: { value } }, value);
         }
     };
