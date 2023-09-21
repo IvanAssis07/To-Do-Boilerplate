@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IToDos } from '../../../modules/toDos/api/toDosSch';
 import { useNavigate, useLocation } from 'react-router-dom';
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -20,7 +19,6 @@ import { toDosApi } from '/imports/modules/toDos/api/toDosApi';
 import { IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
 import { showNotification } from '../../GeneralComponents/ShowNotification';
 import { IDefaultDetailProps } from '/imports/typings/BoilerplateDefaultTypings';
-import CloseIcon from '@mui/icons-material/Close';
 interface ITaskProps extends IDefaultDetailProps {
 	task: IToDos & { creatorName: string };
 	loggedUserId: string;
@@ -30,7 +28,6 @@ export const Task = ({ task, loggedUserId, showDeleteDialog, showModal }: ITaskP
 	const navigate = useNavigate();
 
 	const onClick = (id: string | undefined) => {
-		// navigate('/toDos/view/' + id);
     showModal && showModal({
       url:`/toDos/view/${id}`, 
       modalOnClose:true,
@@ -66,10 +63,8 @@ export const Task = ({ task, loggedUserId, showDeleteDialog, showModal }: ITaskP
 
 	const handleCheckBoxClick = () => {
 		task.completed = !completed;
-    // console.log('Task:', task);
     
 		toDosApi.update(task, (e: IMeteorError) => {
-      // console.log("Inside update\n",task);
 			if (e) {
 				console.log('Error: ', e);
 				showNotification({

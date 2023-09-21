@@ -11,7 +11,7 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 		super('toDos', toDosSch, {
 			resources: Recurso
 		});
-		// this.beforeUpdate = this.beforeUpdate.bind(this);
+    
     this.beforeRemove = this.beforeRemove.bind(this);
 
 		this.addTransformedPublication(
@@ -75,20 +75,9 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 		);
 	}
 
-	// beforeUpdate(docObj: IToDos, context: IContext) {
-  //   console.log("Before update: ", docObj);
-    
-	// 	const user = getUser();
-	// 	if (!docObj.createdby || (user && user._id !== docObj.createdby)) {
-	// 		throw new Meteor.Error('Acesso negado', `Vocẽ não tem permissão para alterar esses dados`);
-	// 	}
-
-	// 	return super.beforeUpdate(docObj, context);
-	// }
 
   beforeRemove(docObj: IToDos, context: IContext) {
 		const user = getUser();
-    // console.log(docObj);
     
 		if (!docObj.createdby || (user && user._id !== docObj.createdby)) {
 			throw new Meteor.Error('Acesso negado', `Vocẽ não tem permissão para alterar esses dados`);

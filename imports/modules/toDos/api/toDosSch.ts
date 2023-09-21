@@ -1,3 +1,4 @@
+import { string } from 'prop-types';
 import { IDoc } from '/imports/typings/IDoc';
 
 export const toDosSch = {
@@ -13,16 +14,6 @@ export const toDosSch = {
         defaultValue: '',
         optional: false,
     },
-    // type: {
-    //   type: String,
-    //   label: 'Tipo',
-    //   defaultValue: '',
-    //   optional: false,
-    //   options:[
-    //     {value:'pessoal',label:'Pessoal'},
-    //     {value:'publica',label:'Pública'},
-    //   ],
-    // },
     private: {
       type: Boolean,
       label: 'Tipo de tarefa',
@@ -34,7 +25,7 @@ export const toDosSch = {
       label: 'Concluída',
       defaultValue: false,
       optional: true,
-    }
+    },
 };
 
 export interface IToDos extends IDoc {

@@ -220,8 +220,10 @@ export class ApiBase<Doc extends IDoc> {
 			console.log(e, r);
 		}
 	) {
-		const newObj: { [key: string]: any } = { _id: docObj._id };
+    
+    const newObj: { [key: string]: any } = { _id: docObj._id };
 		const schema = this.schema;
+
 		Object.keys(docObj).forEach((key) => {
 			if (
 				(!!schema[key] || schema[key] === null) &&
@@ -233,7 +235,7 @@ export class ApiBase<Doc extends IDoc> {
 				newObj[key] = docObj[key];
 			}
 		});
-
+    
 		return this.callMethod('update', newObj, callback);
 	}
 
