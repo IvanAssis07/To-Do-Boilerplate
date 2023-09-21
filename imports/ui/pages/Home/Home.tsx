@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
@@ -10,10 +10,12 @@ import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Task } from '../../components/Task/Task';
+import { AppContext } from '../../AppGeneralComponents';
 
 const Home = () => {
-  const { userId: loggedUserId, user } = useUserAccount();
-  
+	const { userId: loggedUserId, user } = useUserAccount();
+  const { showModal, showDeleteDialog, closeComponent } = React.useContext(AppContext);
+
 	const tasks: (IToDos & { creatorName: string })[] | undefined = useTracker(() => {
 		const subHandle = toDosApi.subscribe(
 			'toDosList',
@@ -26,7 +28,7 @@ const Home = () => {
 
 		if (subHandle) {
 			const tasks = toDosApi.find({}).fetch();
-      
+
 			return tasks;
 		}
 	}, []);
@@ -42,7 +44,14 @@ const Home = () => {
 				{tasks && (
 					<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 						{tasks.map((item: IToDos, index: number) => (
-							<Task key={index} task={item} loggedUserId={loggedUserId} />
+							<Task 
+                key={index}
+                task={item}
+                showDeleteDialog={showDeleteDialog}
+                showModal={showModal}
+                loggedUserId={loggedUserId}
+                closeComponent={closeComponent}
+              />
 						))}
 					</List>
 				)}

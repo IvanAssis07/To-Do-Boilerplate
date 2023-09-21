@@ -25,7 +25,7 @@ export const PageLayout = (props: IPageLayout) => {
 				display: 'flex',
 				flexDirection: 'column',
 				overflowX: 'hidden',
-				maxHeight: '100%'
+				maxHeight: '100%',
 			}}>
 			{!hiddenTitleBar ? (
 				<Box
@@ -35,7 +35,7 @@ export const PageLayout = (props: IPageLayout) => {
 						top: 0,
 						left: 0,
 						width: '100%',
-						backgroundColor: theme.palette.primary.main
+						backgroundColor: theme.palette.primary.main,
 					}}>
 					<Container
 						sx={{
@@ -105,7 +105,7 @@ export const PageLayout = (props: IPageLayout) => {
 					overflowX: 'hidden',
 					overflowY: 'auto',
 					maxHeight: '100%',
-					position: 'relative'
+					position: 'relative',
 				}}>
 				<Container
 					id={'pageContainer'}

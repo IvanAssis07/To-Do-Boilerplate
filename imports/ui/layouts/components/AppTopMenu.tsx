@@ -41,7 +41,13 @@ export const AppTopMenu = (props: ILayoutProps) => {
 	};
 
 	return (
-		<Box sx={{ width: '100%', backgroundColor: '#c4c4c4' }}>
+		<Box
+			sx={{
+				width: '100%',
+				backgroundColor: theme.palette.primary.main,
+				borderBottom: 1,
+				borderBottomColor: theme.palette.secondary.contrastText
+			}}>
 			<Container
 				sx={{
 					width: '100%',
@@ -58,14 +64,14 @@ export const AppTopMenu = (props: ILayoutProps) => {
 						flexDirection: 'row',
 						alignItems: 'center',
 						justifyContent: 'center',
-            marginLeft: 2,
+						marginLeft: 2
 					}}>
-            <Button id="newUser" variant={'text'} color={'onPrimary'} onClick={() => navigate('/')}>
-              <HomeSharpIcon fontSize='large'/>
-              <h2>
-                <span>ToDos List</span>
-              </h2>
-            </Button> 
+					<Button id="newUser" variant={'text'} color={'onPrimary'} onClick={() => navigate('/')}>
+						<HomeSharpIcon fontSize="large" />
+						<h2>
+							<span>ToDos List</span>
+						</h2>
+					</Button>
 				</Box>
 				<Button
 					aria-label="account of current user"
