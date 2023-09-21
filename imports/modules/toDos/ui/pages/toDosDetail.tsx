@@ -16,8 +16,11 @@ import { useTheme } from '@mui/material/styles';
 import { showLoading } from '/imports/ui/components/Loading/Loading';
 import { toDosDetailStyle } from './style/toDosDetailStyle';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Box from '@mui/material/Box';
 
 interface IToDosDetail extends IDefaultDetailProps {
 	toDosDoc: IToDos;
@@ -36,66 +39,67 @@ const ToDosDetail = (props: IToDosDetail) => {
   const { userId: loggedUserId } = useUserAccount();
 
 	return (
-		<PageLayout
-			key={'ExemplePageLayoutDetailKEY'}
-			title={
-				screenState === 'view' ? 'Visualizar tarefa' : screenState === 'edit' ? 'Editar tarefa' : 'Criar tarefa'
-			}
-			onBack={() => closeComponent && closeComponent()}
-      >
-			<SimpleForm
-				key={'ExempleDetail-SimpleFormKEY'}
-				mode={screenState}
-				schema={toDosApi.getSchema()}
-				doc={toDosDoc}
-				onSubmit={handleSubmit}
-				loading={loading}
+    <>
+      <IconButton
+          aria-label="close"
+          onClick={closeComponent}
+          sx={toDosDetailStyle.closeButton}
         >
-
-				<FormGroup key={'fieldsOne'}>
-					<TextField sx={ toDosDetailStyle.input } key={'f1-tituloKEY'} placeholder="Nome" name="name" />
-					<TextField sx={ toDosDetailStyle.input } key={'f1-descricaoKEY'} placeholder="Descrição" name="description" />
-				</FormGroup>
+          <CloseIcon />
+      </IconButton>
+      <SimpleForm
+        key={'ExempleDetail-SimpleFormKEY'}
+        mode={screenState}
+        schema={toDosApi.getSchema()}
+        doc={toDosDoc}
+        onSubmit={handleSubmit}
+        loading={loading}
+        >
+        <FormGroup key={'fieldsOne'}>
+          <TextField sx={ toDosDetailStyle.input } key={'f1-tituloKEY'} placeholder="Nome" name="name" />
+          <TextField sx={ toDosDetailStyle.input } key={'f1-descricaoKEY'} placeholder="Descrição" name="description" />
+        </FormGroup>
         <FormGroup key={'fieldsTwo'}>
           <ToggleSwitchField key={'f2-tipoKEY'} name="private" />
         </FormGroup>
-				<div
-					key={'Buttons'}
-					style={ toDosDetailStyle.buttonContainer }>
-					{!isPrintView ? (
-						<Button
-							key={'b1'}
+        <div
+          key={'Buttons'}
+          style={ toDosDetailStyle.buttonContainer }>
+          {!isPrintView ? (
+            <Button
+              key={'b1'}
               size='medium'
-							style={{ marginRight: 10 }}
-							onClick={
-								screenState === 'edit'
-									? () => navigate(`/toDos/view/${toDosDoc._id}`)
-									: () => closeComponent && closeComponent()
-							}
-							color={'secondary'}
-							variant="contained">
-							{screenState === 'view' ? 'Voltar' : 'Cancelar'}
-						</Button>
-					) : null}
-					{!isPrintView && screenState === 'view' &&  (loggedUserId === toDosDoc.createdby) ? (
-						<Button
-							key={'b2'}
-							onClick={() => {
-								navigate(`/toDos/edit/${toDosDoc._id}`);
-							}}
-							color={'primary'}
-							variant="contained">
-							{'Editar'}
-						</Button>
-					) : null}
-					{!isPrintView && screenState !== 'view' ? (
-						<Button key={'b3'} color={'primary'} variant="contained" id="submit">
-							{'Salvar'}
-						</Button>
-					) : null}
-				</div>
-			</SimpleForm>
-		</PageLayout>
+              style={{ marginRight: 10 }}
+              onClick={
+                screenState === 'edit'
+                  ? () => navigate(`/toDos/view/${toDosDoc._id}`)
+                  : () => closeComponent && closeComponent()
+              }
+              color={'secondary'}
+              variant="contained">
+              {screenState === 'view' ? 'Voltar' : 'Cancelar'}
+            </Button>
+          ) : null}
+          {!isPrintView && screenState === 'view' &&  (loggedUserId === toDosDoc.createdby) ? (
+            <Button
+              size='medium'
+              key={'b2'}
+              onClick={() => {
+                navigate(`/toDos/edit/${toDosDoc._id}`);
+              }}
+              color={'primary'}
+              variant="contained">
+              {'Editar'}
+            </Button>
+          ) : null}
+          {!isPrintView && screenState !== 'view' ? (
+            <Button key={'b3'} size='medium' color={'primary'} variant="contained" id="submit">
+              {'Salvar'}
+            </Button>
+          ) : null}
+        </div>
+      </SimpleForm>
+    </>
 	);
 };
 

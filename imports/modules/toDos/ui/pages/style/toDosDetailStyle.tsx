@@ -7,7 +7,12 @@ const toDosDetailStyle = {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 15,
-    paddingBottom: 15
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 15,
+    top: 10,
+    color: 'secondary'
   }
 };
 
