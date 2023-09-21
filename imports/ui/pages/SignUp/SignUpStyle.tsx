@@ -16,9 +16,20 @@
 
 export const signUpStyle = {
 	containerSignUp: {
-		width: '100%',
-		maxWidth: 400
+		width: '100%', 
+    maxWidth: 400, 
+    height: '90%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
 	},
+  subContainerSignUp: {
+		display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
 	labelRegisterSystem: {
 		textAlign: 'center',
 		display: 'flex',
@@ -26,8 +37,9 @@ export const signUpStyle = {
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	imageLogo: {
-		maxWidth: 100
+  imageLogo: {
+		maxWidth: 100,
+    marginBottom: '5%'
 	},
 	containerButtonOptions: {
 		display: 'flex',

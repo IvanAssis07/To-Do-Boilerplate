@@ -16,15 +16,19 @@
 
 const signinStyle = {
 	containerSignIn: {
-		width: '100%',
-		maxWidth: 400
+		width: '100%', 
+    maxWidth: 400, 
+    height: '90%',
+    display: 'flex',
+    justifyContent: 'center',
 	},
 	subContainerSignIn: {
 		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
 	labelAccessSystem: {
 		textAlign: 'center',
 		display: 'flex',
@@ -33,10 +37,8 @@ const signinStyle = {
 		alignItems: 'center'
 	},
 	imageLogo: {
-		backgroundColor: '#ff9937',
 		maxWidth: 100,
-		borderRadius: 30,
-		padding: 5
+    marginBottom: '5%'
 	},
 	containerButtonOptions: {
 		display: 'flex',

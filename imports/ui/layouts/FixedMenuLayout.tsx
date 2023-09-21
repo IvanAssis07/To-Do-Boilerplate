@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppNavBar } from './AppNavBar';
 import { AppRouterSwitch } from './AppRouterSwitch';
-
+import { useLocation } from "react-router-dom";
 import { fixedMenuLayoutStyle } from './FixedMenuLayoutStyle';
 import { ILayoutProps } from '/imports/typings/BoilerplateDefaultTypings';
 import Box from '@mui/material/Box';
@@ -16,7 +16,7 @@ interface FixedMenuLayoutContextType {
 export const FixedMenuLayoutContext = createContext({} as FixedMenuLayoutContextType);
 
 export const FixedMenuLayout = (props: ILayoutProps) => {
-	const { isMobile, theme } = props;
+	const { isMobile, theme, isLoggedIn } = props;
 
 	const [showAppBar, setShowAppBar] = useState<boolean>(true);
 
@@ -36,13 +36,10 @@ export const FixedMenuLayout = (props: ILayoutProps) => {
 						...fixedMenuLayoutStyle.containerAppRouter,
 						backgroundColor: theme.palette.background.default
 					}}>
-					<AppTopMenu {...props} />
-
-					{/* {showAppBar && !isMobile && <AppNavBar {...props} />} */}
+          {isLoggedIn && <AppTopMenu {...props} />}
 					<Box sx={fixedMenuLayoutStyle.routerSwitch}>
 						<AppRouterSwitch {...props} />
 					</Box>
-					{/* {showAppBar && isMobile && <AppNavBar {...props} />} */}
 				</Box>
 			</FixedMenuLayoutContext.Provider>
 		</Router>

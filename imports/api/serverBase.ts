@@ -1303,6 +1303,8 @@ export class ServerApiBase<Doc extends IDoc> {
 	 * @param  {Object} _context - Meteor this _context.
 	 */
 	serverUpdate(_docObj: Doc | Partial<Doc>, _context: IContext) {
+    console.log('Estou aqui: ',_docObj);
+    
 		try {
 			check(_docObj._id, String);
 			const id = _docObj._id;

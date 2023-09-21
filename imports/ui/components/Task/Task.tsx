@@ -19,7 +19,7 @@ import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { toDosApi } from '/imports/modules/toDos/api/toDosApi';
 import { IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
 import { showNotification } from '../../GeneralComponents/ShowNotification';
-import { DialogContainer } from '../../GeneralComponents/DialogContainer';
+import { ModalContainer } from '../../GeneralComponents/ModalContainer';
 import { AppContext } from '../../AppGeneralComponents';
 interface ITaskProps {
 	task: IToDos & { creatorName: string };
@@ -31,6 +31,12 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 
 	const onClick = (id: string | undefined) => {
 		navigate('/toDos/view/' + id);
+    // <ModalContainer 
+    //   url={'/toDos/view/' + id}
+    //   modalOnClose={true}
+    //   open={true}
+    // />
+    // appContext.showModal({url: '/toDos/view/' + id, modalOnClose: true});
 	};
 
 	const appContext = useContext(AppContext);
@@ -65,8 +71,10 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 	const handleCheckBoxClick = () => {
 		setCompleted(!completed);
 		task.completed = completed;
-
-		toDosApi['update'](task, (e: IMeteorError) => {
+    // console.log('Task:', task);
+    
+		toDosApi.update(task, (e: IMeteorError) => {
+      // console.log("inside update\n",task);
 			if (e) {
 				console.log('Error: ', e);
 				showNotification({
@@ -93,6 +101,7 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 					icon={<UncheckedCircleIcon />}
 					checkedIcon={<CheckedCircleIcon />}
 					checked={completed}
+          disabled={loggedUserId !== task.createdby}
 					onClick={() => {
 						handleCheckBoxClick();
 					}}

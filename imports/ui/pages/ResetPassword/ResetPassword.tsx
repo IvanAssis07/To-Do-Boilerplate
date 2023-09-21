@@ -59,38 +59,40 @@ export const ResetPassword = (props: IDefaultContainerProps) => {
 
 	return (
 		<Container style={resetPasswordStyle.containerResetPassword}>
-			<h2 style={resetPasswordStyle.labelAccessSystem}>
-				<img src="/images/wireframe/logo.png" style={resetPasswordStyle.imageLogo} />
-				Acessar o sistema
-			</h2>
-			<SimpleForm
-				schema={{
-					password: { type: 'String', label: 'Email', optional: false },
-					repassword: { type: 'String', label: 'Email', optional: false }
-				}}
-				onSubmit={handleSubmit}>
-				<TextField
-					label="Digite uma nova senha"
-					icon="lock"
-					name="password"
-					type="password"
-					placeholder="Digite uma nova senha"
-				/>
-				<TextField
-					label="Repita a senha"
-					icon="lock"
-					name="repassword"
-					type="password"
-					placeholder="Repita a nova senha"
-				/>
-				<Box sx={resetPasswordStyle.containerButtonOptions}>
-					<Button onClick={() => navigate('/signin')}> Voltar </Button>
-					<Button id="submit" variant={'outlined'}>
-						{' '}
-						Atualizar a senha{' '}
-					</Button>
-				</Box>
-			</SimpleForm>
+      <Box sx={resetPasswordStyle.subContainerResetPassword}>
+        <h2 style={resetPasswordStyle.labelAccessSystem}>
+          <img src="/images/wireframe/logo.png" style={resetPasswordStyle.imageLogo} />
+          Acessar o sistema
+        </h2>
+        <SimpleForm
+          schema={{
+            password: { type: 'String', label: 'Email', optional: false },
+            repassword: { type: 'String', label: 'Email', optional: false }
+          }}
+          onSubmit={handleSubmit}>
+          <TextField
+            label="Digite uma nova senha"
+            icon="lock"
+            name="password"
+            type="password"
+            placeholder="Digite uma nova senha"
+          />
+          <TextField
+            label="Repita a senha"
+            icon="lock"
+            name="repassword"
+            type="password"
+            placeholder="Repita a nova senha"
+          />
+          <Box sx={resetPasswordStyle.containerButtonOptions}>
+            <Button onClick={() => navigate('/signin')}> Voltar </Button>
+            <Button id="submit" variant={'outlined'}>
+              {' '}
+              Atualizar a senha{' '}
+            </Button>
+          </Box>
+        </SimpleForm>
+      </Box>
 		</Container>
 	);
 };

@@ -68,21 +68,13 @@ export const SignIn = (props: ISignIn) => {
 
 	return (
 		<>
-			<Container sx={{ width: '100%', maxWidth: 400 }}>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'center',
-						alignItems: 'center',
-            marginTop: '10%',
-            textAlign: 'center'
-					}}>
+			<Container sx={signinStyle.containerSignIn}>
+				<Box sx={signinStyle.subContainerSignIn}>
 					<Box>
 						<h3 style={signinStyle.labelAccessSystem}>
-							{/* <img src="/images/wireframe/logo.png" style={signinStyle.imageLogo} /> */}
+							<img src="/images/wireframe/logo.png" style={signinStyle.imageLogo} />
 							<span>Boas-vindas a sua lista de tarefas.</span>
-              <span>Insira o seu e-mail e senha para efetuar o login:</span>
+							<span>Insira o seu e-mail e senha para efetuar o login:</span>
 						</h3>
 						<SimpleForm
 							schema={{
@@ -91,14 +83,14 @@ export const SignIn = (props: ISignIn) => {
 							}}
 							onSubmit={handleSubmit}>
 							<Box>
-								<TextField 
-                  sx={signinStyle.input}
-                  label="Email" 
-                  fullWidth={true} 
-                  name="email" 
-                  type="email" 
-                  placeholder="Digite seu email" 
-                />
+								<TextField
+									sx={signinStyle.input}
+									label="Email"
+									fullWidth={true}
+									name="email"
+									type="email"
+									placeholder="Digite seu email"
+								/>
 								<TextField
 									label="Senha"
 									fullWidth={true}
@@ -114,15 +106,19 @@ export const SignIn = (props: ISignIn) => {
 							</Box>
 						</SimpleForm>
 						<Box style={signinStyle.containerRouterSignUp}>
-              <Button id="forgotPassword" variant={'text'} color={'secondary'} onClick={() => navigate('/password-recovery')}>
+							<Button
+								id="forgotPassword"
+								variant={'text'}
+								color={'secondary'}
+								onClick={() => navigate('/password-recovery')}>
 								Esqueceu sua senha? Clique aqui
 							</Button>
 						</Box>
-            <Box>
-              <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/signup')}>
+						<Box>
+							<Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/signup')}>
 								É novo por aqui? Cadastre-se
 							</Button>
-            </Box>
+						</Box>
 					</Box>
 				</Box>
 			</Container>

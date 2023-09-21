@@ -17,8 +17,19 @@
 export const passwordRecoveryStyle = {
 	containerRecoveryPassword: {
 		width: '100%',
-		maxWidth: 400
+		maxWidth: 400,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center' ,
+    height: '80%',
 	},
+  subContainerRecoveryPassword: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
 	labelAccessSystem: {
 		textAlign: 'center',
 		display: 'flex',
@@ -27,7 +38,8 @@ export const passwordRecoveryStyle = {
 		alignItems: 'center'
 	},
 	imageLogo: {
-		maxWidth: 100
+		maxWidth: 100,
+    marginBottom: '5%'
 	},
 	containerButtonOptions: {
 		marginTop: 4,
