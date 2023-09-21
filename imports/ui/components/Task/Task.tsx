@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { IToDos } from '../../../modules/toDos/api/toDosSch';
 import { useNavigate, useLocation } from 'react-router-dom';
 import List from '@mui/material/List';
@@ -19,32 +19,28 @@ import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { toDosApi } from '/imports/modules/toDos/api/toDosApi';
 import { IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
 import { showNotification } from '../../GeneralComponents/ShowNotification';
-import { ModalContainer } from '../../GeneralComponents/ModalContainer';
-import { AppContext } from '../../AppGeneralComponents';
-interface ITaskProps {
+import { IDefaultDetailProps } from '/imports/typings/BoilerplateDefaultTypings';
+import CloseIcon from '@mui/icons-material/Close';
+interface ITaskProps extends IDefaultDetailProps {
 	task: IToDos & { creatorName: string };
-	loggedUserId: string | undefined | null;
+	loggedUserId: string;
 }
 
-export const Task = ({ task, loggedUserId }: ITaskProps) => {
+export const Task = ({ task, loggedUserId, showDeleteDialog, showModal }: ITaskProps) => {
 	const navigate = useNavigate();
 
 	const onClick = (id: string | undefined) => {
 		navigate('/toDos/view/' + id);
-    // <ModalContainer 
-    //   url={'/toDos/view/' + id}
-    //   modalOnClose={true}
-    //   open={true}
-    // />
-    // appContext.showModal({url: '/toDos/view/' + id, modalOnClose: true});
+    // showModal && showModal({
+    //   url:`/toDos/view/${id}`, 
+    //   modalOnClose:true,
+    // });
 	};
-
-	const appContext = useContext(AppContext);
 
 	const callRemove = (doc: IToDos) => {
 		const title = 'Remover exemplo';
 		const message = `Deseja remover o exemplo "${doc.name}"?`;
-		appContext.showDeleteDialog(title, message, doc, remove);
+		showDeleteDialog && showDeleteDialog(title, message, doc, remove);
 	};
 
 	const remove = (doc: IToDos) => {
@@ -69,12 +65,11 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 	const [completed, setCompleted] = useState(task.completed);
 
 	const handleCheckBoxClick = () => {
-		setCompleted(!completed);
-		task.completed = completed;
+		task.completed = !completed;
     // console.log('Task:', task);
     
 		toDosApi.update(task, (e: IMeteorError) => {
-      // console.log("inside update\n",task);
+      // console.log("Inside update\n",task);
 			if (e) {
 				console.log('Error: ', e);
 				showNotification({
@@ -83,6 +78,7 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 					description: `Erro ao realizar a operação: ${e.reason}`
 				});
 			} else {
+        setCompleted(!completed);
 				showNotification({
 					type: 'success',
 					title: 'Operação realizada!',
@@ -95,7 +91,9 @@ export const Task = ({ task, loggedUserId }: ITaskProps) => {
 	return (
 		<>
 			<Divider />
-			<ListItem>
+			<ListItem
+        key={task._id}
+      >
 				<Checkbox
 					sx={{ fontSize: 30 }}
 					icon={<UncheckedCircleIcon />}

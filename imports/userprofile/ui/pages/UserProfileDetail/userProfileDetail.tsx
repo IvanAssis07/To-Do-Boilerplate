@@ -9,6 +9,7 @@ import ImageCompactField from '/imports/ui/components/SimpleFormFields/ImageComp
 import { PageLayout } from '../../../../ui/layouts/PageLayout';
 import { IUserProfile } from '/imports/userprofile/api/UserProfileSch';
 import { IDefaultDetailProps } from '/imports/typings/BoilerplateDefaultTypings';
+import { userProfileDetailStyle } from '../Styles/userProfileDetailStyle';
 
 const UserProfileDetail = ({ screenState, loading, user, save, navigate, hiddenTitleBar, close }) => {
 	const handleSubmit = (doc: IUserProfile) => {
@@ -28,13 +29,11 @@ const UserProfileDetail = ({ screenState, loading, user, save, navigate, hiddenT
 				doc={user}
 				onSubmit={handleSubmit}
 				loading={loading}>
-				<ImageCompactField label={'Foto'} name={'photo'} />
 				<FormGroup>
-					<TextField placeholder="Nome do Usuário" name="username" />
-					<TextField placeholder="Email" name="email" />
-					<TextField placeholder="Telefone" name="phone" />
+					<TextField sx={ userProfileDetailStyle.input } placeholder="Nome do Usuário" name="username" />
+					<TextField sx={ userProfileDetailStyle.input } placeholder="Email" name="email" />
 				</FormGroup>
-				<div key={'Buttons'} style={{ paddingTop: 20, paddingBottom: 20 }}>
+				<div key={'Buttons'} style={ userProfileDetailStyle.buttonContainer }>
 					<Button
 						onClick={
 							screenState === 'edit'

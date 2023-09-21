@@ -60,7 +60,7 @@ export const AppTopMenu = (props: ILayoutProps) => {
 						justifyContent: 'center',
             marginLeft: 2,
 					}}>
-            <Button id="newUser" variant={'text'} color={'secondary'} onClick={() => navigate('/')}>
+            <Button id="newUser" variant={'text'} color={'onPrimary'} onClick={() => navigate('/')}>
               <HomeSharpIcon fontSize='large'/>
               <h2>
                 <span>ToDos List</span>

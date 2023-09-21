@@ -76,7 +76,7 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 	}
 
 	// beforeUpdate(docObj: IToDos, context: IContext) {
-  //   // console.log("Before update: ", docObj);
+  //   console.log("Before update: ", docObj);
     
 	// 	const user = getUser();
 	// 	if (!docObj.createdby || (user && user._id !== docObj.createdby)) {

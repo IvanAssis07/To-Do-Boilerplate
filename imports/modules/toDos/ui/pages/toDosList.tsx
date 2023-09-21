@@ -1,16 +1,12 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { toDosApi } from '../../api/toDosApi';
-import { userprofileApi } from '../../../../userprofile/api/UserProfileApi';
-import { SimpleTable } from '/imports/ui/components/SimpleTable/SimpleTable';
 import _ from 'lodash';
 import Add from '@mui/icons-material/Add';
-import Delete from '@mui/icons-material/Delete';
 import Fab from '@mui/material/Fab';
 import TablePagination from '@mui/material/TablePagination';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { initSearch } from '/imports/libs/searchUtils';
-import * as appStyle from '/imports/materialui/styles';
 import { nanoid } from 'nanoid';
 import { PageLayout } from '/imports/ui/layouts/PageLayout';
 import TextField from '/imports/ui/components/SimpleFormFields/TextField/TextField';
@@ -30,9 +26,7 @@ import { Task } from '/imports/ui/components/Task/Task';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
 import { ModalContainer } from '/imports/ui/GeneralComponents/ModalContainer';
 
-import Container from '@mui/material/Container';
 import List from '@mui/material/List';
-import Box from '@mui/material/Box';
 
 interface IToDosList extends IDefaultListProps {
 	remove: (doc: IToDos) => void;
@@ -49,6 +43,7 @@ const ToDosList = (props: IToDosList) => {
 		navigate,
 		remove,
 		showDeleteDialog,
+    showModal,
 		onSearch,
 		total,
 		loading,
@@ -123,6 +118,8 @@ const ToDosList = (props: IToDosList) => {
                 <Task
                   key={index}
                   task={item}
+                  showDeleteDialog={showDeleteDialog}
+                  showModal={showModal}
                   loggedUserId={loggedUserId}
                 />
               ))
@@ -252,7 +249,7 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 			config.sortProperties = sort;
 			subscribeConfig.set(config);
 		},
-		setPageSize: (size = 25) => {
+		setPageSize: (size = 4) => {
 			config.pageProperties.pageSize = size;
 			subscribeConfig.set(config);
 		}
