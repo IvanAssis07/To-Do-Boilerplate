@@ -30,11 +30,11 @@ export const Task = ({ task, loggedUserId, showDeleteDialog, showModal }: ITaskP
 	const navigate = useNavigate();
 
 	const onClick = (id: string | undefined) => {
-		navigate('/toDos/view/' + id);
-    // showModal && showModal({
-    //   url:`/toDos/view/${id}`, 
-    //   modalOnClose:true,
-    // });
+		// navigate('/toDos/view/' + id);
+    showModal && showModal({
+      url:`/toDos/view/${id}`, 
+      modalOnClose:true,
+    });
 	};
 
 	const callRemove = (doc: IToDos) => {

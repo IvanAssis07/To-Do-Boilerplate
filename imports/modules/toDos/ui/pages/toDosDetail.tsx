@@ -25,7 +25,7 @@ interface IToDosDetail extends IDefaultDetailProps {
 }
 
 const ToDosDetail = (props: IToDosDetail) => {
-	const { isPrintView, screenState, loading, toDosDoc, save, navigate } = props;
+	const { isPrintView, screenState, loading, toDosDoc, save, navigate, closeComponent } = props;
 
 	const theme = useTheme();
 
@@ -41,7 +41,7 @@ const ToDosDetail = (props: IToDosDetail) => {
 			title={
 				screenState === 'view' ? 'Visualizar tarefa' : screenState === 'edit' ? 'Editar tarefa' : 'Criar tarefa'
 			}
-			onBack={() => navigate('/toDos')}
+			onBack={() => closeComponent && closeComponent()}
       >
 			<SimpleForm
 				key={'ExempleDetail-SimpleFormKEY'}
@@ -49,42 +49,34 @@ const ToDosDetail = (props: IToDosDetail) => {
 				schema={toDosApi.getSchema()}
 				doc={toDosDoc}
 				onSubmit={handleSubmit}
-				loading={loading}>
+				loading={loading}
+        >
 
 				<FormGroup key={'fieldsOne'}>
 					<TextField sx={ toDosDetailStyle.input } key={'f1-tituloKEY'} placeholder="Nome" name="name" />
 					<TextField sx={ toDosDetailStyle.input } key={'f1-descricaoKEY'} placeholder="Descrição" name="description" />
 				</FormGroup>
-				{/* <FormGroup key={'fieldsTwo'}>
-					<SelectField key={'f2-tipoKEY'} placeholder="Selecione um tipo" name="type" />
-				</FormGroup> */}
         <FormGroup key={'fieldsTwo'}>
           <ToggleSwitchField key={'f2-tipoKEY'} name="private" />
         </FormGroup>
 				<div
 					key={'Buttons'}
-					style={{
-						display: 'flex',
-						flexDirection: 'row',
-						justifyContent: 'left',
-						paddingTop: 20,
-						paddingBottom: 20
-					}}>
+					style={ toDosDetailStyle.buttonContainer }>
 					{!isPrintView ? (
 						<Button
 							key={'b1'}
+              size='medium'
 							style={{ marginRight: 10 }}
 							onClick={
 								screenState === 'edit'
 									? () => navigate(`/toDos/view/${toDosDoc._id}`)
-									: () => navigate(`/toDos/list`)
+									: () => closeComponent && closeComponent()
 							}
 							color={'secondary'}
 							variant="contained">
 							{screenState === 'view' ? 'Voltar' : 'Cancelar'}
 						</Button>
 					) : null}
-
 					{!isPrintView && screenState === 'view' &&  (loggedUserId === toDosDoc.createdby) ? (
 						<Button
 							key={'b2'}
@@ -120,11 +112,11 @@ export const ToDosDetailContainer = withTracker((props: IToDosDetailContainer) =
 		toDosDoc,
 		save: (doc: IToDos, _callback: () => void) => {
 			const selectedAction = screenState === 'create' ? 'insert' : 'update';
+      console.log(doc);
       
-			toDosApi[selectedAction]({...doc, completed: false}, (e: IMeteorError, r: string) => {
+			toDosApi[selectedAction]({...doc, completed: false}, (e: IMeteorError, id: string) => {
 				if (!e) {
-					// navigate(`/toDos/view/${screenState === 'create' ? r : doc._id}`);
-          navigate('/toDos');
+					navigate(`/toDos/view/${screenState === 'create' ? id : doc._id}`);         
 					showNotification &&
 						showNotification({
 							type: 'success',

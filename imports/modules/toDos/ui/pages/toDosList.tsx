@@ -55,11 +55,20 @@ const ToDosList = (props: IToDosList) => {
 		setPageSize,
 		searchBy,
 		pageProperties,
+    closeComponent,
 		isMobile
 	} = props;
 
 	const idToDos = nanoid();
   const { userId: loggedUserId } = useUserAccount();
+
+  const onClick = (id: string | undefined) => {
+		// navigate('/toDos/view/' + id);
+    showModal && showModal({
+      url:`/toDos/create/${id}`, 
+      modalOnClose:true,
+    });
+	};
 
 	const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
 		setPage(newPage + 1);
@@ -121,6 +130,7 @@ const ToDosList = (props: IToDosList) => {
                   showDeleteDialog={showDeleteDialog}
                   showModal={showModal}
                   loggedUserId={loggedUserId}
+                  closeComponent={closeComponent}
                 />
               ))
             }
@@ -154,7 +164,11 @@ const ToDosList = (props: IToDosList) => {
 							width: '100%',
 							bottom: isMobile ? 80 : '25%'
 						}}>
-						<Fab id={'add'} variant="extended" onClick={() => navigate(`/toDos/create/${idToDos}`)} color={'primary'}>
+						<Fab
+							id={'add'}
+							variant="extended"
+							onClick={() => onClick(idToDos)}
+							color={'primary'}>
 							<Add />
 							Adicionar Tarefa
 						</Fab>

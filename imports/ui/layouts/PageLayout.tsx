@@ -79,7 +79,7 @@ export const PageLayout = (props: IPageLayout) => {
 									color: '#000',
 									textTransform: 'none',
 									flexDirection: 'row',
-									alignItems: 'center'
+									alignItems: 'center',
 								}}>
 								{title || 'SEM TITULO'}
 							</Typography>
