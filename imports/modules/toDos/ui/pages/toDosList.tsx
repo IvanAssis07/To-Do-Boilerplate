@@ -10,8 +10,7 @@ import { initSearch } from '/imports/libs/searchUtils';
 import { nanoid } from 'nanoid';
 import { PageLayout } from '/imports/ui/layouts/PageLayout';
 import TextField from '/imports/ui/components/SimpleFormFields/TextField/TextField';
-import SearchDocField from '/imports/ui/components/SimpleFormFields/SearchDocField/SearchDocField';
-import { IDefaultContainerProps, IDefaultListProps, IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
+import { IDefaultContainerProps, IDefaultListProps } from '/imports/typings/BoilerplateDefaultTypings';
 import { IToDos } from '../../api/toDosSch';
 import { IConfigList } from '/imports/typings/IFilterProperties';
 import { Recurso } from '../../config/Recursos';
@@ -55,7 +54,6 @@ const ToDosList = (props: IToDosList) => {
   const { userId: loggedUserId } = useUserAccount();
 
   const onClick = (id: string | undefined) => {
-		// navigate('/toDos/view/' + id);
     showModal && showModal({
       url:`/toDos/create/${id}`, 
       modalOnClose:true,
@@ -213,11 +211,6 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 		skip
 	});
 	const toDoss = subHandle?.ready() ? toDosApi.find(filter, { sort }).fetch() : [];
-  // console.log('toDoss: ',toDoss);
-  // console.log('SubHandle', subHandle?.total);
-  // console.log('toDoss len',toDoss.length);
-  
-  
 
 	return {
 		toDoss,

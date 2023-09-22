@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
 import { toDosApi } from '../../../modules/toDos/api/toDosApi';
-import { IConfigList } from '../../../../imports/typings/IFilterProperties';
 import { IToDos } from '../../../modules/toDos/api/toDosSch';
 import Container from '@mui/material/Container';
 import List from '@mui/material/List';

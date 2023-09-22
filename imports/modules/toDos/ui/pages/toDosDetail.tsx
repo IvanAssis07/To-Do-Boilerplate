@@ -5,11 +5,7 @@ import SimpleForm from '../../../../ui/components/SimpleForm/SimpleForm';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '/imports/ui/components/SimpleFormFields/TextField/TextField';
-import SelectField from '../../../../ui/components/SimpleFormFields/SelectField/SelectField';
 import ToggleSwitchField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleSwitchField';
-import Print from '@mui/icons-material/Print';
-import Close from '@mui/icons-material/Close';
-import { PageLayout } from '/imports/ui/layouts/PageLayout';
 import { IToDos } from '../../api/toDosSch';
 import { IDefaultContainerProps, IDefaultDetailProps, IMeteorError } from '/imports/typings/BoilerplateDefaultTypings';
 import { useTheme } from '@mui/material/styles';
@@ -18,9 +14,6 @@ import { toDosDetailStyle } from './style/toDosDetailStyle';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Box from '@mui/material/Box';
 
 interface IToDosDetail extends IDefaultDetailProps {
 	toDosDoc: IToDos;
