@@ -87,7 +87,7 @@ const ExampleList = (props: IExampleList) => {
 	};
 
 	const click = (_e: React.SyntheticEvent) => {
-		if (text && text.trim().length > 0) {
+    if (text && text.trim().length > 0) {
 			onSearch(text.trim());
 		} else {
 			onSearch();

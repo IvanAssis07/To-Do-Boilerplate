@@ -19,12 +19,8 @@ import { RenderComPermissao } from '/imports/seguranca/ui/components/RenderComPe
 import { isMobile } from '/imports/libs/deviceVerify';
 import { showLoading } from '/imports/ui/components/Loading/Loading';
 import { toDosListStyle } from './style/toDosListStyle';
-import { ComplexTable } from '/imports/ui/components/ComplexTable/ComplexTable';
-import ToggleField from '/imports/ui/components/SimpleFormFields/ToggleField/ToggleField';
-import SimpleForm from '../../../../ui/components/SimpleForm/SimpleForm';
 import { Task } from '/imports/ui/components/Task/Task';
 import { useUserAccount } from '/imports/hooks/useUserAccount';
-import { ModalContainer } from '/imports/ui/GeneralComponents/ModalContainer';
 
 import List from '@mui/material/List';
 
@@ -40,19 +36,15 @@ interface IToDosList extends IDefaultListProps {
 const ToDosList = (props: IToDosList) => {
 	const {
 		toDoss,
-		navigate,
-		remove,
 		showDeleteDialog,
     showModal,
 		onSearch,
 		total,
 		loading,
 		viewComplexTable,
-		setViewComplexTable,
 		setFilter,
 		clearFilter,
 		setPage,
-		setPageSize,
 		searchBy,
 		pageProperties,
     closeComponent,
@@ -150,7 +142,7 @@ const ToDosList = (props: IToDosList) => {
 					rowsPerPageOptions={[]}
 					component="div"
 					count={total || 0}
-					rowsPerPage={4}
+					rowsPerPage={pageProperties.pageSize}
 					page={pageProperties.currentPage - 1}
 					onPageChange={handleChangePage}
 				/>
@@ -184,7 +176,7 @@ export const subscribeConfig = new ReactiveVar<IConfigList & { viewComplexTable:
 		currentPage: 1,
 		pageSize: 4
 	},
-	sortProperties: { field: 'createdat', sortAscending: true },
+	sortProperties: { field: 'createdat', sortAscending: false },
 	filter: {},
 	searchBy: null,
 	viewComplexTable: false
@@ -201,8 +193,6 @@ let onSearchToDosTyping: NodeJS.Timeout;
 const viewComplexTable = new ReactiveVar(false);
 
 export const ToDosListContainer = withTracker((props: IDefaultContainerProps) => {
-	const { showNotification } = props;
-
 	//Reactive Search/Filter
 	const config = subscribeConfig.get();
 	const sort = {
@@ -223,6 +213,11 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 		skip
 	});
 	const toDoss = subHandle?.ready() ? toDosApi.find(filter, { sort }).fetch() : [];
+  // console.log('toDoss: ',toDoss);
+  // console.log('SubHandle', subHandle?.total);
+  // console.log('toDoss len',toDoss.length);
+  
+  
 
 	return {
 		toDoss,
@@ -257,14 +252,6 @@ export const ToDosListContainer = withTracker((props: IDefaultContainerProps) =>
 		},
 		clearFilter: () => {
 			config.filter = {};
-			subscribeConfig.set(config);
-		},
-		setSort: (sort = { field: 'createdat', sortAscending: true }) => {
-			config.sortProperties = sort;
-			subscribeConfig.set(config);
-		},
-		setPageSize: (size = 4) => {
-			config.pageProperties.pageSize = size;
 			subscribeConfig.set(config);
 		}
 	};

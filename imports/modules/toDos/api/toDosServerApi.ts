@@ -11,8 +11,8 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 		super('toDos', toDosSch, {
 			resources: Recurso
 		});
-    
-    this.beforeRemove = this.beforeRemove.bind(this);
+
+		this.beforeRemove = this.beforeRemove.bind(this);
 
 		this.addTransformedPublication(
 			'toDosList',
@@ -22,11 +22,12 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 				if (!userId) {
 					return;
 				}
+        
 
 				return this.defaultListCollectionPublication(
 					{
-						...filter,
-						$or: [{ private: false }, { private: true, createdby: userId }]
+						$or: [{ private: false }, { createdby: userId }],
+            ...filter,
 					},
 					{
 						...optionsPub,
@@ -75,10 +76,9 @@ class ToDosServerApi extends ProductServerBase<IToDos> {
 		);
 	}
 
-
-  beforeRemove(docObj: IToDos, context: IContext) {
+	beforeRemove(docObj: IToDos, context: IContext) {
 		const user = getUser();
-    
+
 		if (!docObj.createdby || (user && user._id !== docObj.createdby)) {
 			throw new Meteor.Error('Acesso negado', `Vocẽ não tem permissão para alterar esses dados`);
 		}

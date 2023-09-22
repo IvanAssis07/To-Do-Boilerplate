@@ -30,7 +30,7 @@ export const Task = ({ task, loggedUserId, showDeleteDialog, showModal }: ITaskP
 	const onClick = (id: string | undefined) => {
     showModal && showModal({
       url:`/toDos/view/${id}`, 
-      modalOnClose:true,
+      modalOnClose: true,
     });
 	};
 
